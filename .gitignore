@@ -1,0 +1,6 @@
+yolo_dataset/
+runs/
+predictions/
+__pycache__/
+*.pyc
+.DS_Store
