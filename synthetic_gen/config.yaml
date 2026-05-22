@@ -1,0 +1,14 @@
+output_dir: ../yolo_dataset
+total_images: 5000
+train_ratio: 0.8
+image_size: [640, 640]
+chart_types:
+  vertical: 0.2
+  horizontal: 0.15
+  grouped_vertical: 0.15
+  grouped_horizontal: 0.1
+  stacked_vertical: 0.15
+  stacked_horizontal: 0.1
+  overlapping_vertical: 0.1
+  overlapping_horizontal: 0.05
+seed: 42
