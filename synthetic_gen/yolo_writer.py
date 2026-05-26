@@ -27,16 +27,31 @@ def ensure_dirs(output_dir: str | Path) -> dict[str, Path]:
     return paths
 
 
+def _as_bbox_list(
+    bboxes: tuple[float, float, float, float]
+    | list[tuple[float, float, float, float]],
+) -> list[tuple[float, float, float, float]]:
+    if isinstance(bboxes, tuple):
+        return [bboxes]
+    return list(bboxes)
+
+
 def write_sample(image: Image.Image,
-                 bbox: tuple[float, float, float, float],
+                 bboxes: tuple[float, float, float, float]
+                 | list[tuple[float, float, float, float]],
                  image_path: Path,
                  label_path: Path) -> None:
-    """Save a single image and its YOLO annotation file."""
+    """Save a single image and its YOLO annotation file(s)."""
     image.save(str(image_path), format="PNG")
 
-    x_center, y_center, w, h = bbox
+    bbox_list = _as_bbox_list(bboxes)
+    lines = [
+        f"{CLASS_ID} {x_center:.6f} {y_center:.6f} {w:.6f} {h:.6f}"
+        for x_center, y_center, w, h in bbox_list
+    ]
+
     with open(label_path, "w") as f:
-        f.write(f"{CLASS_ID} {x_center:.6f} {y_center:.6f} {w:.6f} {h:.6f}\n")
+        f.write("\n".join(lines) + "\n")
 
 
 def write_data_yaml(output_dir: str | Path) -> None:

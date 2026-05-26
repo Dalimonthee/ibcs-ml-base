@@ -95,7 +95,7 @@ def train(args) -> YOLO:
     print("=" * 60)
 
     model = YOLO(args.model)
-    model.train(
+    train_kwargs = dict(
         data=str(args.data),
         epochs=args.epochs,
         batch=args.batch,
@@ -105,6 +105,9 @@ def train(args) -> YOLO:
         exist_ok=True,
         verbose=True,
     )
+    if args.device:
+        train_kwargs["device"] = args.device
+    model.train(**train_kwargs)
     return model
 
 
@@ -140,6 +143,7 @@ def predict(model: YOLO, args) -> None:
     total_detections = 0
     images_with_detections = 0
     all_confidences: list[float] = []
+    detection_histogram: dict[int, int] = {}
 
     for group_name, images in image_groups.items():
         out_dir = PREDICTIONS_DIR / group_name
@@ -158,6 +162,7 @@ def predict(model: YOLO, args) -> None:
         for img_path, result in zip(images, results):
             n_boxes = len(result.boxes)
             total_detections += n_boxes
+            detection_histogram[n_boxes] = detection_histogram.get(n_boxes, 0) + 1
             if n_boxes > 0:
                 images_with_detections += 1
                 for box in result.boxes:
@@ -175,6 +180,16 @@ def predict(model: YOLO, args) -> None:
     print(f"  Images with detections:    {images_with_detections} "
           f"({images_with_detections / total_images * 100:.1f}%)")
     print(f"  Total bounding boxes:      {total_detections}")
+    if detection_histogram:
+        print("  Detection count histogram:")
+        for count in sorted(detection_histogram):
+            n_imgs = detection_histogram[count]
+            label = f"{count} box(es)" if count != 1 else "1 box"
+            print(f"    {label:<12} {n_imgs:>4} images")
+        multi = sum(n for c, n in detection_histogram.items() if c >= 2)
+        if total_images:
+            print(f"  Multi-box images (2+):     {multi} "
+                  f"({multi / total_images * 100:.1f}%)")
     if all_confidences:
         avg_conf = sum(all_confidences) / len(all_confidences)
         print(f"  Average confidence:        {avg_conf:.4f}")
@@ -199,6 +214,8 @@ def main():
                         help="Image size (default: 640)")
     parser.add_argument("--conf", type=float, default=0.25,
                         help="Confidence threshold for predictions (default: 0.25)")
+    parser.add_argument("--device", type=str, default=None,
+                        help="Training device (e.g. mps, cpu, 0). Auto if omitted.")
     parser.add_argument("--predict-only", action="store_true",
                         help="Skip training, only run prediction")
     parser.add_argument("--weights", type=str, default=None,

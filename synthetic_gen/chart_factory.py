@@ -51,8 +51,12 @@ def pick_chart_type(rng: random.Random,
 def create_chart(rng: random.Random,
                  chart_type: str | None = None,
                  weights: dict[str, float] | None = None,
+                 shared_style: StyleParams | None = None,
                  ) -> tuple[plt.Figure, matplotlib.axes.Axes, StyleParams, str]:
     """Create a random bar chart figure.
+
+    If shared_style is provided, reuse its bg_color and palette for dashboard
+    theming while randomizing other visual parameters per chart.
 
     Returns (fig, ax, style, chart_type).
     """
@@ -60,6 +64,9 @@ def create_chart(rng: random.Random,
         chart_type = pick_chart_type(rng, weights)
 
     style = random_style(rng)
+    if shared_style is not None:
+        style.bg_color = shared_style.bg_color
+        style.palette = shared_style.palette.copy()
     fig, ax = plt.subplots(figsize=(style.fig_width, style.fig_height))
     fig.patch.set_facecolor(style.bg_color)
 

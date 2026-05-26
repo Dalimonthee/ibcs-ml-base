@@ -11,4 +11,11 @@ chart_types:
   stacked_horizontal: 0.1
   overlapping_vertical: 0.1
   overlapping_horizontal: 0.05
+charts_per_image:
+  1: 0.40
+  2: 0.25
+  3: 0.25
+  4: 0.10
+gap_px: 24
+min_slot_fill: 0.85
 seed: 42
