@@ -4,3 +4,26 @@ predictions/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Virtual environments
+venv311/
+venv/
+.venv/
+env/
+.env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Logs and data artifacts
+*.log
+*.pt
+*.pth
+*.onnx
