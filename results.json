@@ -1,0 +1,89 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9452276229858398,
+    "orientation": "vertical",
+    "bbox_center_format": {
+      "x": 356.5,
+      "y": 566.5,
+      "width": 627.0,
+      "height": 279.0
+    },
+    "bbox_xyxy": {
+      "x1": 38,
+      "y1": 422,
+      "x2": 675,
+      "y2": 711
+    },
+    "crop_path": "crops/chart_0_vertical.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "zero_source": "axis_group",
+      "reason": "Zero found on value axis"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8123125433921814,
+    "orientation": "vertical",
+    "bbox_center_format": {
+      "x": 359.5,
+      "y": 195.5,
+      "width": 643.0,
+      "height": 305.0
+    },
+    "bbox_xyxy": {
+      "x1": 33,
+      "y1": 38,
+      "x2": 686,
+      "y2": 353
+    },
+    "crop_path": "crops/chart_1_vertical.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "reason": "No value-axis labels detected; treated as compliant by client rule"
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.7669214010238647,
+    "orientation": "vertical",
+    "bbox_center_format": {
+      "x": 360.0,
+      "y": 195.5,
+      "width": 640.0,
+      "height": 305.0
+    },
+    "bbox_xyxy": {
+      "x1": 35,
+      "y1": 38,
+      "x2": 685,
+      "y2": 353
+    },
+    "crop_path": "crops/chart_2_vertical.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "reason": "No value-axis labels detected; treated as compliant by client rule"
+    }
+  }
+]
