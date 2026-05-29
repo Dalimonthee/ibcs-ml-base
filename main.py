@@ -41,6 +41,11 @@ import cv2
 import easyocr
 import numpy as np
 
+import os
+from shutil import which
+import pytesseract
+from PIL import Image as PILImage
+
 try:
     from inference_sdk import InferenceHTTPClient
 except ImportError:
@@ -106,11 +111,71 @@ def preprocess_for_ocr(image):
     clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
     return clahe.apply(gray)
 
+tesseract_path = os.getenv("TESSERACT_CMD") or which("tesseract") or "/opt/homebrew/bin/tesseract"
+pytesseract.pytesseract.tesseract_cmd = tesseract_path
+
+def ocr_left_strip_for_percent_axis(image):
+    h, w = image.shape[:2]
+
+    strip = image[:, :int(w * 0.08)]
+    if strip.size == 0:
+        return []
+
+    gray = cv2.cvtColor(strip, cv2.COLOR_BGR2GRAY)
+    gray = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+    gray = clahe.apply(gray)
+
+    pil_img = PILImage.fromarray(gray)
+
+    # PSM 4 = single column of text, handles vertical axis labels well
+    # Whitelist includes % so Tesseract knows to expect it
+    config = '--psm 4 -c tessedit_char_whitelist=0123456789.%'
+    data = pytesseract.image_to_data(
+        pil_img, config=config,
+        output_type=pytesseract.Output.DICT
+    )
+
+    detected = []
+    seen_cy = set()
+
+    for i, text in enumerate(data['text']):
+        if not text.strip():
+            continue
+        conf = int(data['conf'][i])
+        if conf < 10:
+            continue
+        number = extract_number(text)
+        if number is None:
+            continue
+
+        x     = data['left'][i]
+        y     = data['top'][i]
+        w_box = data['width'][i]
+        h_box = data['height'][i]
+
+        cy_key = round((y + h_box / 2) / 2)
+        if cy_key in seen_cy:
+            continue
+        seen_cy.add(cy_key)
+
+        detected.append({
+            "value":      number,
+            "text":       text,
+            "confidence": conf / 100.0,
+            "left":       x / 2,
+            "right":      (x + w_box) / 2,
+            "top":        y / 2,
+            "bottom":     (y + h_box) / 2,
+            "cx":         (x + w_box / 2) / 2,
+            "cy":         (y + h_box / 2) / 2,
+            "box":        [[x, y], [x + w_box, y],
+                           [x + w_box, y + h_box], [x, y + h_box]]
+        })
+
+    return detected
 
 def ocr_numeric_boxes(image):
-    """OCR all numeric text and return values with bounding-box geometry.
-    Matches notebook Cell 6 exactly.
-    """
     processed = preprocess_for_ocr(image)
     results = reader.readtext(processed)
 
@@ -133,6 +198,17 @@ def ocr_numeric_boxes(image):
             "cx":         geo["cx"],
             "cy":         geo["cy"],
         })
+
+    # Second pass: dedicated strip for faint gray percentage axis labels
+    # that the main pass misses due to low contrast
+    strip_detections = ocr_left_strip_for_percent_axis(image)
+
+    existing_cy = {round(n["cy"]) for n in numeric_boxes}
+    for item in strip_detections:
+        # Only add if the main pass didn't already find something at this y-position
+        if not any(abs(item["cy"] - cy) < 10 for cy in existing_cy):
+            numeric_boxes.append(item)
+            existing_cy.add(round(item["cy"]))
 
     processed_h, processed_w = processed.shape[:2]
     return numeric_boxes, processed_w, processed_h
