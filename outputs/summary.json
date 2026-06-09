@@ -1,0 +1,17 @@
+{
+  "image_path": "/Users/nguyenanhvu/Documents/AMD-Semester3/GroupProject/ibcs-ml-base/Dataset/Compliant/45.png",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 2434,
+    "height": 1541
+  },
+  "num_raw_predictions": 3,
+  "num_analyzed_charts": 3,
+  "results_json": "results.json",
+  "labeled_output": "outputs/labeled_output.png",
+  "raw_result_json": "outputs/roboflow_raw_result.json",
+  "tesseract_available": true
+}

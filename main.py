@@ -1,149 +1,267 @@
+#!/usr/bin/env python3
 """
-main.py  —  corrected to match Startingatzero.ipynb logic exactly
-Pipeline:
-1. Use Roboflow Workflow to detect vertical/horizontal bar charts.
-2. Crop each detected chart from the original dashboard image.
-3. Run OCR + axis logic (from notebook) to decide whether the value axis includes 0.
+Fuse Roboflow bar-chart detection with start-at-zero checking.
 
-Install:
-    pip install inference-sdk opencv-python easyocr numpy
+This script is intentionally compatible with visualize_results_notebook.ipynb.
+It writes results.json as a LIST of chart result objects with these fields:
 
-Run:
-    export ROBOFLOW_API_KEY="your_key_here"
-    python main.py --image dashboard.png --workspace-name your-ws --workflow-id your-wf-id
+- chart_id
+- detector_label
+- detector_confidence
+- orientation
+- bbox_xyxy: {x1, y1, x2, y2}
+- crop_path
+- start_at_zero_result
 
-Changes from previous main.py (all match notebook cells exactly):
-    FIX 1 — ocr_bottom_left_for_zero: crop width changed from 0.35 → 0.25,
-             crop height start changed from 0.65 → 0.70 (notebook Cell 12).
-             This was the root cause of reading bar data labels in the chart middle.
-    FIX 2 — ocr_bottom_left_for_zero: restored missing Otsu threshold strategy
-             (Strategy 3 from notebook Cell 12).
-    FIX 3 — ocr_bottom_left_for_zero: stricter allowlist '0123456789.-'
-             and confidence threshold > 0.05 (matching notebook Cell 12).
-    FIX 4 — hunt_zero_in_full_image: entire function was missing, now added
-             (notebook Cell 14).
-    FIX 5 — check_starts_at_zero_image: added third rescue pass calling
-             hunt_zero_in_full_image with zero_source='rescue_hunt'
-             (notebook Cell 15 logic).
-    FIX 6 — find_vertical_value_axis: mean_x threshold restored to 0.25
-             (not 0.30) and y_spread threshold restored to 0.25 (not 0.20)
-             (notebook Cell 10).
+Example:
+    export ROBOFLOW_API_KEY="your_api_key"
+
+    python main.py \
+      --image Dataset/Compliant/17.png \
+      --workspace-name khas-workspace-3cwa2 \
+      --workflow-id bar-chart-detection-and-crop-1779799226718 \
+      --output-json results.json
 """
+
+from __future__ import annotations
 
 import argparse
+import base64
 import json
 import os
 import re
+import sys
 from collections import defaultdict
 from pathlib import Path
+from shutil import which
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import cv2
-import easyocr
 import numpy as np
+from inference_sdk import InferenceHTTPClient
 
 try:
-    from inference_sdk import InferenceHTTPClient
-except ImportError:
-    InferenceHTTPClient = None
+    import easyocr  # type: ignore
+except Exception as exc:  # pragma: no cover - runtime dependency message
+    easyocr = None
+    EASYOCR_IMPORT_ERROR = exc
+else:
+    EASYOCR_IMPORT_ERROR = None
 
-# ── EasyOCR reader (shared across all calls) ─────────────────────────────────
-reader = easyocr.Reader(["en"], gpu=False)
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-# HELPERS
-# ═════════════════════════════════════════════════════════════════════════════
-
-def make_json_safe(obj):
-    if isinstance(obj, dict):
-        return {k: make_json_safe(v) for k, v in obj.items()}
-    if isinstance(obj, list):
-        return [make_json_safe(v) for v in obj]
-    if isinstance(obj, tuple):
-        return [make_json_safe(v) for v in obj]
-    if isinstance(obj, np.integer):
-        return int(obj)
-    if isinstance(obj, np.floating):
-        return float(obj)
-    if isinstance(obj, np.ndarray):
-        return obj.tolist()
-    return obj
+try:
+    import pytesseract  # type: ignore
+    from PIL import Image as PILImage  # type: ignore
+except Exception:
+    pytesseract = None
+    PILImage = None
 
 
-def extract_number(text):
-    text = text.replace(",", "").replace("%", "").replace("m", "").strip()
+_EASYOCR_READER = None
 
-    matches = re.findall(r"-?\d+\.?\d*", text)
 
+def get_easyocr_reader():
+    """Lazy-load EasyOCR so Roboflow-only failures are easier to debug."""
+    global _EASYOCR_READER
+    if easyocr is None:
+        raise RuntimeError(
+            "easyocr is not installed or failed to import. Install dependencies with:\n"
+            "    pip install inference-sdk opencv-python easyocr numpy pillow pytesseract\n"
+            f"Original error: {EASYOCR_IMPORT_ERROR}"
+        )
+    if _EASYOCR_READER is None:
+        _EASYOCR_READER = easyocr.Reader(["en"], gpu=False)
+    return _EASYOCR_READER
+
+
+def configure_tesseract() -> bool:
+    """Return True if pytesseract can be used. Tesseract is optional."""
+    if pytesseract is None or PILImage is None:
+        return False
+
+    cmd = os.getenv("TESSERACT_CMD") or which("tesseract") or "/opt/homebrew/bin/tesseract"
+    if cmd and Path(cmd).exists():
+        try:
+            pytesseract.pytesseract.tesseract_cmd = cmd
+            return True
+        except Exception:
+            return False
+    return False
+
+
+TESSERACT_AVAILABLE = configure_tesseract()
+
+
+# -----------------------------------------------------------------------------
+# Start-at-zero OCR logic
+# -----------------------------------------------------------------------------
+
+
+def extract_number(text: Any) -> Optional[float]:
+    """Extract the first number from OCR text."""
+    if text is None:
+        return None
+
+    cleaned = str(text)
+    cleaned = cleaned.replace(",", "").replace("%", "").replace("m", "").strip()
+    cleaned = cleaned.replace("O", "0").replace("o", "0")
+
+    matches = re.findall(r"-?\d+\.?\d*", cleaned)
     if not matches:
         return None
 
-    return float(matches[0])
+    try:
+        return float(matches[0])
+    except ValueError:
+        return None
 
 
-def box_geometry(box):
-    """Return left/right/top/bottom/cx/cy from a 4-point box.
-    Matches notebook Cell 4 exactly.
-    """
-    xs = [p[0] for p in box]
-    ys = [p[1] for p in box]
+def box_geometry(box: Sequence[Sequence[float]], scale: float = 1.0) -> Dict[str, float]:
+    """Return OCR box geometry in original crop coordinates."""
+    xs = [float(p[0]) / scale for p in box]
+    ys = [float(p[1]) / scale for p in box]
     return {
-        "left":   min(xs),
-        "right":  max(xs),
-        "top":    min(ys),
+        "left": min(xs),
+        "right": max(xs),
+        "top": min(ys),
         "bottom": max(ys),
-        "cx":     sum(xs) / 4,
-        "cy":     sum(ys) / 4,
+        "cx": sum(xs) / 4.0,
+        "cy": sum(ys) / 4.0,
     }
 
 
-def preprocess_for_ocr(image):
-    """Upscale + CLAHE to make faint labels readable.
-    Matches notebook Cell 5 exactly.
-    """
+def preprocess_for_ocr(image: np.ndarray, scale: float = 2.0) -> Tuple[np.ndarray, float]:
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+    gray = cv2.resize(gray, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
     clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
-    return clahe.apply(gray)
+    gray = clahe.apply(gray)
+    return gray, scale
 
 
-def ocr_numeric_boxes(image):
-    """OCR all numeric text and return values with bounding-box geometry.
-    Matches notebook Cell 6 exactly.
+def ocr_left_strip_for_percent_axis(image: np.ndarray, strip_ratio: float = 0.10) -> List[Dict[str, Any]]:
     """
-    processed = preprocess_for_ocr(image)
+    Optional Tesseract pass for faint percentage labels near the left axis.
+
+    Coordinates are converted back to original crop coordinates before returning.
+    If Tesseract is not installed, this silently returns an empty list.
+    """
+    if not TESSERACT_AVAILABLE or pytesseract is None or PILImage is None:
+        return []
+
+    h, w = image.shape[:2]
+    strip = image[:, : max(1, int(w * strip_ratio))]
+    if strip.size == 0:
+        return []
+
+    scale = 2.0
+    gray = cv2.cvtColor(strip, cv2.COLOR_BGR2GRAY)
+    gray = cv2.resize(gray, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+    gray = clahe.apply(gray)
+
+    pil_img = PILImage.fromarray(gray)
+    config = "--psm 4 -c tessedit_char_whitelist=0123456789.%"
+
+    try:
+        data = pytesseract.image_to_data(
+            pil_img,
+            config=config,
+            output_type=pytesseract.Output.DICT,
+        )
+    except Exception as exc:
+        print(f"Warning: Tesseract strip pass skipped: {exc}", file=sys.stderr)
+        return []
+
+    detected: List[Dict[str, Any]] = []
+    seen_cy: set[int] = set()
+
+    for i, raw_text in enumerate(data.get("text", [])):
+        text = str(raw_text).strip()
+        if not text:
+            continue
+        try:
+            conf = float(data["conf"][i])
+        except Exception:
+            continue
+        if conf < 10:
+            continue
+
+        number = extract_number(text)
+        if number is None:
+            continue
+
+        x = float(data["left"][i]) / scale
+        y = float(data["top"][i]) / scale
+        bw = float(data["width"][i]) / scale
+        bh = float(data["height"][i]) / scale
+
+        cy_key = round(y + bh / 2.0)
+        if cy_key in seen_cy:
+            continue
+        seen_cy.add(cy_key)
+
+        detected.append(
+            {
+                "value": number,
+                "text": text,
+                "confidence": conf / 100.0,
+                "left": x,
+                "right": x + bw,
+                "top": y,
+                "bottom": y + bh,
+                "cx": x + bw / 2.0,
+                "cy": y + bh / 2.0,
+                "source": "tesseract_left_strip",
+            }
+        )
+
+    return detected
+
+
+def ocr_numeric_boxes(image: np.ndarray) -> Tuple[List[Dict[str, Any]], int, int]:
+    """OCR all numeric labels. Returned coordinates are original crop coordinates."""
+    reader = get_easyocr_reader()
+    processed, scale = preprocess_for_ocr(image, scale=2.0)
     results = reader.readtext(processed)
 
-    numeric_boxes = []
+    numeric_boxes: List[Dict[str, Any]] = []
     for box, text, confidence in results:
-        if confidence < 0.2:
+        if confidence < 0.20:
             continue
         number = extract_number(text)
         if number is None:
             continue
-        geo = box_geometry(box)
-        numeric_boxes.append({
-            "value":      number,
-            "text":       text,
-            "confidence": float(confidence),
-            "left":       geo["left"],
-            "right":      geo["right"],
-            "top":        geo["top"],
-            "bottom":     geo["bottom"],
-            "cx":         geo["cx"],
-            "cy":         geo["cy"],
-        })
 
-    processed_h, processed_w = processed.shape[:2]
-    return numeric_boxes, processed_w, processed_h
+        # Critical: EasyOCR ran on the 2x preprocessed image, so divide by scale.
+        geo = box_geometry(box, scale=scale)
+        numeric_boxes.append(
+            {
+                "value": number,
+                "text": str(text),
+                "confidence": float(confidence),
+                "left": geo["left"],
+                "right": geo["right"],
+                "top": geo["top"],
+                "bottom": geo["bottom"],
+                "cx": geo["cx"],
+                "cy": geo["cy"],
+                "source": "easyocr",
+            }
+        )
+
+    for item in ocr_left_strip_for_percent_axis(image):
+        duplicate = any(
+            abs(float(item["cy"]) - float(n["cy"])) < 10
+            and abs(float(item["value"]) - float(n["value"])) < 1e-6
+            for n in numeric_boxes
+        )
+        if not duplicate:
+            numeric_boxes.append(item)
+
+    h, w = image.shape[:2]
+    return numeric_boxes, w, h
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# AXIS SCORING HELPERS
-# ═════════════════════════════════════════════════════════════════════════════
-
-def is_monotonic(values):
-    """Matches notebook Cell 8 exactly."""
+def is_monotonic(values: Sequence[float]) -> bool:
     if len(values) < 2:
         return False
     increasing = all(values[i] <= values[i + 1] for i in range(len(values) - 1))
@@ -151,89 +269,59 @@ def is_monotonic(values):
     return increasing or decreasing
 
 
-def is_evenly_spaced(values, tolerance_ratio=0.20):
+def is_evenly_spaced(values: Sequence[float], tolerance_ratio: float = 0.22) -> bool:
     if len(values) < 3:
         return False
-
-    values = sorted(values)
-    diffs = [values[i + 1] - values[i] for i in range(len(values) - 1)]
-
-    if any(d == 0 for d in diffs):
+    vals = sorted(float(v) for v in values)
+    diffs = [vals[i + 1] - vals[i] for i in range(len(vals) - 1)]
+    if any(abs(d) < 1e-9 for d in diffs):
         return False
-
     avg_diff = sum(diffs) / len(diffs)
-
-    return all(abs(d - avg_diff) <= avg_diff * tolerance_ratio for d in diffs)
-
-
-def infer_zero_on_axis(axis_values, tolerance=0.01):
-    """Check if zero would be the next step below the detected axis range.
-    Matches notebook Cell 13 exactly.
-    """
-    if len(axis_values) < 2:
+    if abs(avg_diff) < 1e-9:
         return False
-    vals = sorted(axis_values)
-    step = (vals[-1] - vals[0]) / (len(vals) - 1)
-    if step <= 0:
-        return False
-    extrapolated = vals[0] - step
-    return abs(extrapolated) <= abs(step) * tolerance
+    return all(abs(d - avg_diff) <= abs(avg_diff) * tolerance_ratio for d in diffs)
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# AXIS DETECTION
-# ═════════════════════════════════════════════════════════════════════════════
-
-def find_vertical_value_axis(numbers, image_width, image_height):
+def find_vertical_value_axis(numbers: Sequence[Dict[str, Any]], image_width: int, image_height: int) -> List[Dict[str, Any]]:
+    """For vertical bar charts, the value axis is normally the y-axis on the left."""
     if len(numbers) < 3:
         return []
 
-    groups = defaultdict(list)
-    bin_size = image_width * 0.04
-
+    groups: Dict[int, List[Dict[str, Any]]] = defaultdict(list)
+    bin_size = max(1.0, image_width * 0.04)
     for item in numbers:
-        x_bin = int(item["right"] // bin_size)
+        x_bin = int(float(item["right"]) // bin_size)
         groups[x_bin].append(item)
 
-    best_group = []
+    best_group: List[Dict[str, Any]] = []
     best_score = 0
 
     for group in groups.values():
         if len(group) < 3:
             continue
 
-        group = sorted(group, key=lambda x: x["cy"])
-        values = [g["value"] for g in group]
-
-        # Hard gate: must be evenly spaced to even be considered
-        # This immediately rejects data labels and random number clusters
+        group = sorted(group, key=lambda x: float(x["cy"]))
+        values = [float(g["value"]) for g in group]
         if not is_evenly_spaced(values):
             continue
 
-        x_positions = [g["right"] for g in group]
-        y_positions = [g["cy"] for g in group]
-
+        x_positions = [float(g["right"]) for g in group]
+        y_positions = [float(g["cy"]) for g in group]
         mean_x = sum(x_positions) / len(x_positions)
         x_spread = max(x_positions) - min(x_positions)
         y_spread = max(y_positions) - min(y_positions)
 
         score = 0
-
-        if mean_x < image_width * 0.25:
+        if mean_x < image_width * 0.30:
             score += 3
-
         if x_spread < image_width * 0.12:
             score += 3
-
         if y_spread > image_height * 0.25:
             score += 3
-
         if len(group) >= 3:
             score += 2
-
         if is_monotonic(values):
             score += 4
-
         if is_evenly_spaced(values):
             score += 4
 
@@ -244,61 +332,46 @@ def find_vertical_value_axis(numbers, image_width, image_height):
     return best_group
 
 
-def find_horizontal_value_axis(numbers, image_width, image_height):
+def find_horizontal_value_axis(numbers: Sequence[Dict[str, Any]], image_width: int, image_height: int) -> List[Dict[str, Any]]:
+    """For horizontal bar charts, the value axis is normally the x-axis at the bottom."""
     if len(numbers) < 3:
         return []
 
-    groups = defaultdict(list)
-    bin_size = image_height * 0.08
-
+    groups: Dict[int, List[Dict[str, Any]]] = defaultdict(list)
+    bin_size = max(1.0, image_height * 0.08)
     for item in numbers:
-        y_bin = int(item["cy"] // bin_size)
+        y_bin = int(float(item["cy"]) // bin_size)
         groups[y_bin].append(item)
 
-    best_group = []
+    best_group: List[Dict[str, Any]] = []
     best_score = 0
 
     for group in groups.values():
         if len(group) < 3:
             continue
 
-        group = sorted(group, key=lambda x: x["cx"])
-        values = [g["value"] for g in group]
-
-        # Hard gate: must be evenly spaced
+        group = sorted(group, key=lambda x: float(x["cx"]))
+        values = [float(g["value"]) for g in group]
         if not is_evenly_spaced(values):
             continue
 
-        x_positions = [g["cx"] for g in group]
-        y_positions = [g["cy"] for g in group]
-
+        x_positions = [float(g["cx"]) for g in group]
+        y_positions = [float(g["cy"]) for g in group]
         mean_y = sum(y_positions) / len(y_positions)
         x_spread = max(x_positions) - min(x_positions)
         y_spread = max(y_positions) - min(y_positions)
 
         score = 0
-
-        # 1. x-axis labels sit near the bottom of the chart
-        if mean_y > image_height * 0.75:
+        if mean_y > image_height * 0.65:
             score += 3
-
-        # 2. x-axis labels should be spread horizontally
         if x_spread > image_width * 0.25:
             score += 3
-
-        # 3. x-axis labels should be vertically tight
-        if y_spread < image_height * 0.08:
+        if y_spread < image_height * 0.10:
             score += 3
-
-        # 4. At least 3 tick values
         if len(group) >= 3:
             score += 2
-
-        # 5. Values increase left to right
         if is_monotonic(values):
             score += 4
-
-        # 6. Even spacing (already passed hard gate, so this always adds 4)
         if is_evenly_spaced(values):
             score += 4
 
@@ -309,353 +382,534 @@ def find_horizontal_value_axis(numbers, image_width, image_height):
     return best_group
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# ZERO RESCUE FUNCTIONS
-# ═════════════════════════════════════════════════════════════════════════════
-
-def ocr_bottom_left_for_zero(image, image_w, image_h):
-    """Rescue pass: look for a standalone '0' in the bottom-left crop.
-    Matches notebook Cell 12 exactly.
-
-    FIX 1: crop is image[h*0.70:, :w*0.25]  — NOT 0.65/0.35 as in old main.py.
-    FIX 2: Otsu threshold strategy restored (was missing from old main.py).
-    FIX 3: allowlist='0123456789.-' and confidence > 0.05 (stricter than old main.py).
-    """
+def ocr_bottom_left_for_zero(image: np.ndarray) -> bool:
+    """Rescue pass for a small zero near the chart origin."""
     h, w = image.shape[:2]
-
-    # FIX 1 — correct crop region matching notebook exactly
-    crop = image[int(h * 0.70):, :int(w * 0.25)]
-
+    crop = image[int(h * 0.65) :, : int(w * 0.32)]
     if crop.size == 0:
         return False
 
-    gray    = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    reader = get_easyocr_reader()
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
     resized = cv2.resize(gray, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
 
-    strategies = []
-
-    # Strategy 1: raw grayscale
-    strategies.append(resized)
-
-    # Strategy 2: CLAHE only
+    strategies = [resized]
     clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(4, 4))
     strategies.append(clahe.apply(resized.copy()))
 
-    # Strategy 3: Otsu threshold  ← FIX 2: this was completely missing from old main.py
     is_dark = np.mean(resized) < 128
-    tt = cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU if is_dark else cv2.THRESH_BINARY + cv2.THRESH_OTSU
-    _, s3 = cv2.threshold(resized.copy(), 0, 255, tt)
-    strategies.append(s3)
+    threshold_type = cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU if is_dark else cv2.THRESH_BINARY + cv2.THRESH_OTSU
+    _, thresholded = cv2.threshold(resized.copy(), 0, 255, threshold_type)
+    strategies.append(thresholded)
 
     for img in strategies:
-        # FIX 3 — strict allowlist and confidence matching notebook
         results = reader.readtext(img, allowlist="0123456789.-")
         for _, text, conf in results:
-            num = extract_number(text)
-            if conf > 0.05 and num is not None and abs(num) < 1.0:
+            number = extract_number(text)
+            if conf > 0.05 and number is not None and abs(number) < 1.0:
                 return True
-
     return False
 
 
-def hunt_zero_in_full_image(image, image_width, image_height):
-    """Dedicated pass: scan the left 25% of the full image for a standalone '0'.
-    Matches notebook Cell 14 exactly.
-
-    FIX 4: this entire function was missing from old main.py.
-    """
+def hunt_zero_on_value_axis(image: np.ndarray, orientation: str) -> bool:
+    """Last-resort scan in the likely zero area for the selected orientation."""
     h, w = image.shape[:2]
-    left_strip = image[:, :int(w * 0.25)]   # only left 25%
+    if orientation == "vertical":
+        search = image[:, : int(w * 0.28)]
+    elif orientation == "horizontal":
+        search = image[int(h * 0.60) :, : int(w * 0.45)]
+    else:
+        return False
 
-    gray = cv2.cvtColor(left_strip, cv2.COLOR_BGR2GRAY)
+    if search.size == 0:
+        return False
+
+    reader = get_easyocr_reader()
+    gray = cv2.cvtColor(search, cv2.COLOR_BGR2GRAY)
     gray = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
     clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
-    gray  = clahe.apply(gray)
+    gray = clahe.apply(gray)
 
     results = reader.readtext(gray, allowlist="0123456789.m%")
     for _, text, conf in results:
-        num = extract_number(text)
-        if conf > 0.05 and num is not None and abs(num) < 1.0:
+        number = extract_number(text)
+        if conf > 0.05 and number is not None and abs(number) < 1.0:
             return True
-
     return False
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# MAIN CHECK FUNCTION
-# ═════════════════════════════════════════════════════════════════════════════
+def check_starts_at_zero(
+    image_path: Path | str,
+    orientation: str,
+    assume_compliant_if_axis_missing: bool = True,
+) -> Dict[str, Any]:
+    """Check whether a cropped chart's value axis starts at zero."""
+    image = cv2.imread(str(image_path))
+    if image is None:
+        raise ValueError(f"Image not found: {image_path}")
 
-def check_starts_at_zero_image(image, orientation, tolerance=0.01):
-    """Return compliance result for one cropped bar-chart image.
-    Matches notebook Cell 15 exactly — three rescue passes, correct zero_source labels.
-
-    FIX 5: added third rescue pass (hunt_zero_in_full_image) which was
-           missing from old main.py. zero_source labels also match notebook.
-    """
     numbers, w, h = ocr_numeric_boxes(image)
 
     if orientation == "vertical":
         axis_group = find_vertical_value_axis(numbers, w, h)
-        axis_type  = "y-axis"
+        axis_type = "y-axis"
     elif orientation == "horizontal":
         axis_group = find_horizontal_value_axis(numbers, w, h)
-        axis_type  = "x-axis"
+        axis_type = "x-axis"
     else:
         return {
-            "status":        "unknown",
+            "status": "unknown",
             "starts_at_zero": None,
-            "orientation":   orientation,
-            "reason":        "Invalid or unknown orientation",
+            "orientation": orientation,
+            "axis_type": None,
+            "detected_axis_values": [],
+            "ocr_numbers_count": len(numbers),
+            "zero_source": None,
+            "reason": "Invalid or unknown chart orientation",
         }
 
-    # Client rule: no axis labels detected → compliant
     if not axis_group:
         return {
-            "status":               "compliant",
-            "starts_at_zero":       True,
-            "orientation":          orientation,
-            "axis_type":            axis_type,
+            "status": "compliant" if assume_compliant_if_axis_missing else "unknown",
+            "starts_at_zero": True if assume_compliant_if_axis_missing else None,
+            "orientation": orientation,
+            "axis_type": axis_type,
             "detected_axis_values": [],
-            "reason":               "No value-axis labels detected; treated as compliant by client rule",
+            "ocr_numbers_count": len(numbers),
+            "zero_source": None,
+            "reason": "No reliable value-axis label group detected",
         }
 
-    axis_values    = [item["value"] for item in axis_group]
-    contains_zero  = any(abs(v) < 1.0 for v in axis_values)
-    zero_source    = "axis_group" if contains_zero else None
+    axis_values = [float(item["value"]) for item in axis_group]
+    contains_zero = any(abs(v) < 1.0 for v in axis_values)
+    zero_source = "axis_group" if contains_zero else None
 
-    # Rescue pass 1 — bottom-left crop (FIX 1/2/3 applied inside function)
-    if not contains_zero and orientation == "vertical":
-        contains_zero = ocr_bottom_left_for_zero(image, w, h)
+    if not contains_zero:
+        contains_zero = ocr_bottom_left_for_zero(image)
         if contains_zero:
-            zero_source = "rescue_crop"
-            axis_values = axis_values + [0.0]
+            zero_source = "bottom_left_rescue"
+            axis_values.append(0.0)
 
-    # Rescue pass 2 — full left-strip hunt  ← FIX 5: was completely missing
-    if not contains_zero and orientation == "vertical":
-        contains_zero = hunt_zero_in_full_image(image, w, h)
+    if not contains_zero:
+        contains_zero = hunt_zero_on_value_axis(image, orientation)
         if contains_zero:
-            zero_source = "rescue_hunt"
-            axis_values = axis_values + [0.0]
+            zero_source = "axis_area_rescue"
+            axis_values.append(0.0)
 
-    # zero_source → human-readable reason (matches notebook Cell 15)
     reason_map = {
-        "axis_group":   "Zero found on value axis",
-        "rescue_crop":  "Zero found via bottom-left crop rescue",
-        "rescue_hunt":  "Zero found via left-strip digit scan rescue",
-        None:           "Value-axis labels detected but zero was not found",
+        "axis_group": "Zero found directly in the selected value-axis label group",
+        "bottom_left_rescue": "Zero found by the bottom-left origin rescue pass",
+        "axis_area_rescue": "Zero found by the orientation-specific axis-area rescue pass",
+        None: "Value-axis labels detected, but zero was not found",
     }
 
     return {
-        "status":               "compliant" if contains_zero else "non_compliant",
-        "starts_at_zero":       contains_zero,
-        "orientation":          orientation,
-        "axis_type":            axis_type,
-        "detected_axis_values": sorted(axis_values),
-        "zero_source":          zero_source,
-        "reason":               reason_map[zero_source],
+        "status": "compliant" if contains_zero else "non_compliant",
+        "starts_at_zero": bool(contains_zero),
+        "orientation": orientation,
+        "axis_type": axis_type,
+        "detected_axis_values": sorted(set(axis_values)),
+        "ocr_numbers_count": len(numbers),
+        "zero_source": zero_source,
+        "reason": reason_map[zero_source],
     }
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# ROBOFLOW WORKFLOW PIPELINE  (unchanged — wraps the notebook logic above)
-# ═════════════════════════════════════════════════════════════════════════════
-
-def value_from_obj(obj, *names, default=None):
-    for name in names:
-        if isinstance(obj, dict) and name in obj:
-            return obj[name]
-        if hasattr(obj, name):
-            return getattr(obj, name)
-    return default
+# -----------------------------------------------------------------------------
+# Roboflow Workflow logic
+# -----------------------------------------------------------------------------
 
 
-def find_prediction_lists(obj):
-    found = []
-    if isinstance(obj, list):
-        if obj and all(isinstance(x, dict) for x in obj):
-            if any(any(k in x for k in ("class", "class_name", "label", "x", "y", "width", "height")) for x in obj):
-                found.append(obj)
-        for item in obj:
-            found.extend(find_prediction_lists(item))
-    elif isinstance(obj, dict):
-        if "predictions" in obj and isinstance(obj["predictions"], list):
-            found.append(obj["predictions"])
-        for value in obj.values():
-            found.extend(find_prediction_lists(value))
-    return found
-
-
-def normalize_predictions_from_workflow(workflow_result):
-    prediction_lists = find_prediction_lists(workflow_result)
-    normalized = []
-    for predictions in prediction_lists:
-        for p in predictions:
-            label      = value_from_obj(p, "class_name", "class", "label", default="unknown")
-            confidence = value_from_obj(p, "confidence", "score",  default=None)
-            x          = value_from_obj(p, "x", "center_x")
-            y          = value_from_obj(p, "y", "center_y")
-            width      = value_from_obj(p, "width",  "w")
-            height     = value_from_obj(p, "height", "h")
-            x1         = value_from_obj(p, "x1", "left")
-            y1         = value_from_obj(p, "y1", "top")
-            x2         = value_from_obj(p, "x2", "right")
-            y2         = value_from_obj(p, "y2", "bottom")
-
-            if None not in (x, y, width, height):
-                normalized.append({
-                    "label":      str(label),
-                    "confidence": float(confidence) if confidence is not None else None,
-                    "x": float(x), "y": float(y),
-                    "width": float(width), "height": float(height),
-                    "format": "cxcywh", "raw": p,
-                })
-            elif None not in (x1, y1, x2, y2):
-                x1, y1, x2, y2 = float(x1), float(y1), float(x2), float(y2)
-                normalized.append({
-                    "label":      str(label),
-                    "confidence": float(confidence) if confidence is not None else None,
-                    "x": (x1 + x2) / 2, "y": (y1 + y2) / 2,
-                    "width": x2 - x1,   "height": y2 - y1,
-                    "format": "xyxy", "raw": p,
-                })
-
-    unique, seen = [], set()
-    for p in normalized:
-        key = (p["label"], round(p["x"], 2), round(p["y"], 2),
-               round(p["width"], 2), round(p["height"], 2))
-        if key not in seen:
-            seen.add(key)
-            unique.append(p)
-    return unique
-
-
-def label_to_orientation(label: str) -> str:
-    label_lower = label.lower()
-    if "vertical"   in label_lower: return "vertical"
-    if "horizontal" in label_lower: return "horizontal"
-    return "unknown"
-
-
-def crop_prediction(image, pred, padding=5):
-    img_h, img_w = image.shape[:2]
-    x, y, w, h = pred["x"], pred["y"], pred["width"], pred["height"]
-    x1 = int(max(0,     x - w / 2 - padding))
-    y1 = int(max(0,     y - h / 2 - padding))
-    x2 = int(min(img_w, x + w / 2 + padding))
-    y2 = int(min(img_h, y + h / 2 + padding))
-    return image[y1:y2, x1:x2], {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
-
-
-def run_workflow_detection(image_path, api_url, api_key, workspace_name, workflow_id, confidence_threshold=0.5):
+def run_roboflow_workflow(
+    image_path: Path | str,
+    workspace_name: str,
+    workflow_id: str,
+    api_key: str,
+    api_url: str,
+    image_input_name: str,
+) -> Any:
     client = InferenceHTTPClient(api_url=api_url, api_key=api_key)
     return client.run_workflow(
         workspace_name=workspace_name,
         workflow_id=workflow_id,
-        images={"image": image_path},
-        parameters={"confidence": confidence_threshold}  # passed to workflow node
+        images={image_input_name: str(image_path)},
     )
 
 
-def run_pipeline(
-    image_path,
-    api_url,
-    api_key,
-    workspace_name,
-    workflow_id,
-    confidence_threshold=0.5,
-    save_crops=False,
-    raw_workflow_output_path=None,
-):
-    image = cv2.imread(image_path)
-    if image is None:
-        raise ValueError(f"Image not found: {image_path}")
+def unwrap_single_result(result: Any) -> Any:
+    if isinstance(result, list) and len(result) == 1:
+        return result[0]
+    return result
 
-    workflow_result = run_workflow_detection(
+
+def is_prediction_dict(item: Any) -> bool:
+    if not isinstance(item, dict):
+        return False
+    keys = set(item.keys())
+    has_center_box = {"x", "y", "width", "height"}.issubset(keys)
+    has_xyxy_box = {"x_min", "y_min", "x_max", "y_max"}.issubset(keys) or {"xmin", "ymin", "xmax", "ymax"}.issubset(keys)
+    has_ltrb_box = {"left", "top", "right", "bottom"}.issubset(keys)
+    return has_center_box or has_xyxy_box or has_ltrb_box
+
+
+def collect_prediction_lists(obj: Any, path: str = "root") -> List[Tuple[str, List[Dict[str, Any]]]]:
+    """Recursively find every list that looks like object-detection predictions."""
+    found: List[Tuple[str, List[Dict[str, Any]]]] = []
+
+    if isinstance(obj, list):
+        pred_items = [x for x in obj if is_prediction_dict(x)]
+        if pred_items:
+            found.append((path, pred_items))
+        for i, value in enumerate(obj):
+            found.extend(collect_prediction_lists(value, f"{path}[{i}]"))
+
+    elif isinstance(obj, dict):
+        for key, value in obj.items():
+            found.extend(collect_prediction_lists(value, f"{path}.{key}"))
+
+    return found
+
+
+def prediction_class(pred: Dict[str, Any]) -> str:
+    for key in ["class", "class_name", "label", "name"]:
+        if key in pred and pred[key] is not None:
+            return str(pred[key])
+    return ""
+
+
+def prediction_class_lower(pred: Dict[str, Any]) -> str:
+    return prediction_class(pred).lower().strip()
+
+
+def orientation_from_prediction(pred: Dict[str, Any]) -> Optional[str]:
+    label = prediction_class_lower(pred)
+    if "horizontal" in label:
+        return "horizontal"
+    if "vertical" in label:
+        return "vertical"
+    return None
+
+
+def prediction_confidence(pred: Dict[str, Any]) -> Optional[float]:
+    for key in ["confidence", "class_confidence", "score"]:
+        if key in pred and pred[key] is not None:
+            try:
+                return float(pred[key])
+            except Exception:
+                return None
+    return None
+
+
+def extract_chart_predictions(workflow_result: Any) -> List[Dict[str, Any]]:
+    """
+    Extract bar-chart predictions from flexible Roboflow Workflow output.
+
+    Your screenshot shows `detect.predictions`; this function also handles nested
+    outputs by selecting the prediction list with the most horizontal/vertical classes.
+    """
+    result = unwrap_single_result(workflow_result)
+    candidates = collect_prediction_lists(result)
+    if not candidates:
+        return []
+
+    def score_candidate(pair: Tuple[str, List[Dict[str, Any]]]) -> Tuple[int, int]:
+        _, preds = pair
+        orient_count = sum(1 for p in preds if orientation_from_prediction(p) in {"horizontal", "vertical"})
+        return orient_count, len(preds)
+
+    best_path, best_preds = max(candidates, key=score_candidate)
+    orient_count = sum(1 for p in best_preds if orientation_from_prediction(p) in {"horizontal", "vertical"})
+    print(f"Using predictions from {best_path}: {len(best_preds)} boxes, {orient_count} chart boxes")
+    return best_preds
+
+
+def bbox_from_prediction(
+    pred: Dict[str, Any],
+    image_width: int,
+    image_height: int,
+    padding_ratio: float = 0.08,
+) -> Tuple[int, int, int, int]:
+    """Convert a Roboflow prediction to clipped x1,y1,x2,y2 image coordinates."""
+    keys = set(pred.keys())
+
+    if {"x", "y", "width", "height"}.issubset(keys):
+        x = float(pred["x"])
+        y = float(pred["y"])
+        bw = float(pred["width"])
+        bh = float(pred["height"])
+        x1 = x - bw / 2.0
+        y1 = y - bh / 2.0
+        x2 = x + bw / 2.0
+        y2 = y + bh / 2.0
+    elif {"x_min", "y_min", "x_max", "y_max"}.issubset(keys):
+        x1 = float(pred["x_min"])
+        y1 = float(pred["y_min"])
+        x2 = float(pred["x_max"])
+        y2 = float(pred["y_max"])
+    elif {"xmin", "ymin", "xmax", "ymax"}.issubset(keys):
+        x1 = float(pred["xmin"])
+        y1 = float(pred["ymin"])
+        x2 = float(pred["xmax"])
+        y2 = float(pred["ymax"])
+    elif {"left", "top", "right", "bottom"}.issubset(keys):
+        x1 = float(pred["left"])
+        y1 = float(pred["top"])
+        x2 = float(pred["right"])
+        y2 = float(pred["bottom"])
+    else:
+        raise ValueError(f"Unsupported prediction box format: {pred}")
+
+    bw = max(1.0, x2 - x1)
+    bh = max(1.0, y2 - y1)
+    pad_x = bw * padding_ratio
+    pad_y = bh * padding_ratio
+
+    x1_i = int(max(0, round(x1 - pad_x)))
+    y1_i = int(max(0, round(y1 - pad_y)))
+    x2_i = int(min(image_width, round(x2 + pad_x)))
+    y2_i = int(min(image_height, round(y2 + pad_y)))
+
+    if x2_i <= x1_i or y2_i <= y1_i:
+        raise ValueError(f"Invalid crop box after clipping: {(x1_i, y1_i, x2_i, y2_i)}")
+
+    return x1_i, y1_i, x2_i, y2_i
+
+
+# -----------------------------------------------------------------------------
+# Output helpers compatible with visualize_results_notebook.ipynb
+# -----------------------------------------------------------------------------
+
+
+def save_json(obj: Any, output_path: Path | str) -> None:
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, indent=2, ensure_ascii=False, default=str)
+
+
+def save_possible_base64_image(value: Any, output_path: Path | str) -> Optional[str]:
+    """Save Roboflow visualization outputs if they are returned as base64 strings."""
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        value = value.get("value") or value.get("base64") or value.get("image")
+    if not isinstance(value, str):
+        return None
+
+    try:
+        if value.startswith("data:image"):
+            value = value.split(",", 1)[1]
+        data = base64.b64decode(value)
+        with open(output_path, "wb") as f:
+            f.write(data)
+        return str(output_path)
+    except Exception:
+        return None
+
+
+def draw_labeled_image(image_path: Path | str, results: Sequence[Dict[str, Any]], output_path: Path | str) -> None:
+    image = cv2.imread(str(image_path))
+    if image is None:
+        raise ValueError(f"Could not read image: {image_path}")
+
+    for item in results:
+        bbox = item["bbox_xyxy"]
+        x1, y1, x2, y2 = int(bbox["x1"]), int(bbox["y1"]), int(bbox["x2"]), int(bbox["y2"])
+        zero = item.get("start_at_zero_result", {})
+        status = zero.get("status", "unknown")
+        starts = zero.get("starts_at_zero")
+        label = item.get("detector_label", "unknown")
+        chart_id = item.get("chart_id", "?")
+        text = f"#{chart_id} {label} | zero={starts} | {status}"
+
+        color = (0, 180, 0) if status == "compliant" else (0, 0, 255)
+        cv2.rectangle(image, (x1, y1), (x2, y2), color, 3)
+        cv2.putText(
+            image,
+            text,
+            (x1, max(y1 - 10, 20)),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.6,
+            color,
+            2,
+            cv2.LINE_AA,
+        )
+
+    cv2.imwrite(str(output_path), image)
+
+
+def build_visualizer_item(
+    chart_id: int,
+    pred: Dict[str, Any],
+    orientation: str,
+    bbox: Tuple[int, int, int, int],
+    crop_path: Path,
+    zero_result: Dict[str, Any],
+) -> Dict[str, Any]:
+    x1, y1, x2, y2 = bbox
+    return {
+        "chart_id": chart_id,
+        "detector_label": prediction_class(pred),
+        "detector_confidence": prediction_confidence(pred),
+        "orientation": orientation,
+        "bbox_xyxy": {"x1": x1, "y1": y1, "x2": x2, "y2": y2},
+        "crop_path": str(crop_path),
+        "start_at_zero_result": zero_result,
+    }
+
+
+def analyze_image(
+    image_path: Path,
+    workspace_name: str,
+    workflow_id: str,
+    api_key: str,
+    api_url: str,
+    image_input_name: str,
+    output_dir: Path,
+    output_json: Path,
+    crop_padding_ratio: float,
+    assume_compliant_if_axis_missing: bool,
+) -> List[Dict[str, Any]]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    crops_dir = output_dir / "crops"
+    crops_dir.mkdir(parents=True, exist_ok=True)
+
+    image = cv2.imread(str(image_path))
+    if image is None:
+        raise FileNotFoundError(f"Could not read image: {image_path}")
+    img_h, img_w = image.shape[:2]
+
+    print("Running Roboflow Workflow...")
+    raw_result = run_roboflow_workflow(
         image_path=image_path,
-        api_url=api_url,
-        api_key=api_key,
         workspace_name=workspace_name,
         workflow_id=workflow_id,
-        confidence_threshold=confidence_threshold,
+        api_key=api_key,
+        api_url=api_url,
+        image_input_name=image_input_name,
     )
+    save_json(raw_result, output_dir / "roboflow_raw_result.json")
 
-    if raw_workflow_output_path:
-        with open(raw_workflow_output_path, "w", encoding="utf-8") as f:
-            json.dump(workflow_result, f, indent=2)
+    unwrapped = unwrap_single_result(raw_result)
+    if isinstance(unwrapped, dict):
+        save_possible_base64_image(unwrapped.get("annotated_image"), output_dir / "roboflow_annotated_image.png")
 
-    predictions = normalize_predictions_from_workflow(workflow_result)
-    outputs     = []
-    crops_dir   = Path("crops")
-    if save_crops:
-        crops_dir.mkdir(exist_ok=True)
+    predictions = extract_chart_predictions(raw_result)
+    results: List[Dict[str, Any]] = []
 
-    for i, pred in enumerate(predictions):
-        if pred["confidence"] is not None and pred["confidence"] < confidence_threshold:
-            continue
-        orientation = label_to_orientation(pred["label"])
-        if orientation == "unknown":
-            continue
-        crop, bbox_xyxy = crop_prediction(image, pred)
-        if crop.size == 0:
+    for raw_idx, pred in enumerate(predictions):
+        orientation = orientation_from_prediction(pred)
+        if orientation not in {"vertical", "horizontal"}:
+            print(f"Skipping box {raw_idx}: label is not horizontal/vertical -> {prediction_class(pred)!r}")
             continue
 
-        zero_result = check_starts_at_zero_image(crop, orientation)
-        crop_path   = None
-        if save_crops:
-            crop_path = str(crops_dir / f"chart_{i}_{orientation}.png")
-            cv2.imwrite(crop_path, crop)
+        bbox = bbox_from_prediction(pred, img_w, img_h, padding_ratio=crop_padding_ratio)
+        x1, y1, x2, y2 = bbox
+        crop = image[y1:y2, x1:x2]
 
-        outputs.append({
-            "chart_id":            i,
-            "detector_label":      pred["label"],
-            "detector_confidence": pred["confidence"],
-            "orientation":         orientation,
-            "bbox_center_format":  {
-                "x": pred["x"], "y": pred["y"],
-                "width": pred["width"], "height": pred["height"],
-            },
-            "bbox_xyxy":           bbox_xyxy,
-            "crop_path":           crop_path,
-            "start_at_zero_result": zero_result,
-        })
+        chart_id = len(results)
+        safe_label = re.sub(r"[^a-zA-Z0-9_-]+", "_", prediction_class_lower(pred) or orientation)
+        crop_path = crops_dir / f"chart_{chart_id}_{safe_label}.png"
+        cv2.imwrite(str(crop_path), crop)
 
-    return outputs
+        print(f"Checking chart {chart_id}: {prediction_class(pred)!r}, orientation={orientation}, crop={crop_path}")
+        zero_result = check_starts_at_zero(
+            crop_path,
+            orientation=orientation,
+            assume_compliant_if_axis_missing=assume_compliant_if_axis_missing,
+        )
+
+        results.append(
+            build_visualizer_item(
+                chart_id=chart_id,
+                pred=pred,
+                orientation=orientation,
+                bbox=bbox,
+                crop_path=crop_path,
+                zero_result=zero_result,
+            )
+        )
+
+    save_json(results, output_json)
+    draw_labeled_image(image_path, results, output_dir / "labeled_output.png")
+
+    summary = {
+        "image_path": str(image_path),
+        "workspace_name": workspace_name,
+        "workflow_id": workflow_id,
+        "api_url": api_url,
+        "image_input_name": image_input_name,
+        "image_size": {"width": img_w, "height": img_h},
+        "num_raw_predictions": len(predictions),
+        "num_analyzed_charts": len(results),
+        "results_json": str(output_json),
+        "labeled_output": str(output_dir / "labeled_output.png"),
+        "raw_result_json": str(output_dir / "roboflow_raw_result.json"),
+        "tesseract_available": TESSERACT_AVAILABLE,
+    }
+    save_json(summary, output_dir / "summary.json")
+
+    return results
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# CLI ENTRY POINT
-# ═════════════════════════════════════════════════════════════════════════════
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run Roboflow bar-chart detection and start-at-zero checking, outputting results.json for the visualization notebook."
+    )
+    parser.add_argument("--image", required=True, help="Path to the original dashboard image.")
+    parser.add_argument("--workspace-name", required=True, help="Roboflow workspace name.")
+    parser.add_argument("--workflow-id", required=True, help="Roboflow Workflow ID.")
+    parser.add_argument("--api-key", default=os.getenv("ROBOFLOW_API_KEY"), help="Roboflow API key. Defaults to ROBOFLOW_API_KEY env var.")
+    parser.add_argument(
+        "--api-url",
+        default=os.getenv("ROBOFLOW_API_URL", "https://detect.roboflow.com"),
+        help="Roboflow API URL. Use the exact URL shown in your Workflow Deploy snippet if different.",
+    )
+    parser.add_argument("--image-input-name", default="image", help="Workflow image input name. Your screenshot shows this is 'image'.")
+    parser.add_argument("--output-dir", default="outputs", help="Directory for crops, raw Roboflow output, and labeled image.")
+    parser.add_argument("--output-json", default="results.json", help="JSON path consumed by visualize_results_notebook.ipynb.")
+    parser.add_argument("--crop-padding-ratio", type=float, default=0.08, help="Extra padding around detected chart boxes before OCR.")
+    parser.add_argument(
+        "--no-assume-compliant-if-axis-missing",
+        action="store_true",
+        help="Return unknown instead of compliant when no reliable value-axis labels are detected.",
+    )
+    return parser.parse_args()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Roboflow Workflow + start-at-zero checker")
-    parser.add_argument("--image",           required=True,  help="Path to dashboard/chart image")
-    parser.add_argument("--api-url",         default="https://detect.roboflow.com")
-    parser.add_argument("--api-key",         default=os.getenv("ROBOFLOW_API_KEY"))
-    parser.add_argument("--workspace-name",  required=True)
-    parser.add_argument("--workflow-id",     required=True)
-    parser.add_argument("--conf",            type=float, default=0.25)
-    parser.add_argument("--save-crops",      action="store_true")
-    parser.add_argument("--output",          default="results.json")
-    parser.add_argument("--raw-workflow-output", default="workflow_raw.json")
-    args = parser.parse_args()
+
+def main() -> int:
+    args = parse_args()
 
     if not args.api_key:
-        raise ValueError("Missing API key. Use --api-key or set ROBOFLOW_API_KEY.")
+        print("Error: provide --api-key or set ROBOFLOW_API_KEY.", file=sys.stderr)
+        return 2
 
-    final_results = run_pipeline(
-        image_path=args.image,
-        api_url=args.api_url,
-        api_key=args.api_key,
-        workspace_name=args.workspace_name,
-        workflow_id=args.workflow_id,
-        confidence_threshold=args.conf,
-        save_crops=args.save_crops,
-        raw_workflow_output_path=args.raw_workflow_output,
-    )
+    image_path = Path(args.image)
+    output_dir = Path(args.output_dir)
+    output_json = Path(args.output_json)
 
-    with open(args.output, "w", encoding="utf-8") as f:
-        json.dump(make_json_safe(final_results), f, indent=2)
+    try:
+        results = analyze_image(
+            image_path=image_path,
+            workspace_name=args.workspace_name,
+            workflow_id=args.workflow_id,
+            api_key=args.api_key,
+            api_url=args.api_url,
+            image_input_name=args.image_input_name,
+            output_dir=output_dir,
+            output_json=output_json,
+            crop_padding_ratio=args.crop_padding_ratio,
+            assume_compliant_if_axis_missing=not args.no_assume_compliant_if_axis_missing,
+        )
+    except Exception as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
 
-    print(json.dumps(make_json_safe(final_results), indent=2))
-    print(f"\nSaved results to: {args.output}")
-    print(f"Saved raw workflow response to: {args.raw_workflow_output}")
+    print()
+    print(f"Done. Wrote {len(results)} chart result(s) to: {output_json}")
+    print(f"Open visualize_results_notebook.ipynb and set RESULTS_PATH = {str(output_json)!r}")
+    print(f"Set IMAGE_PATH = {str(image_path)!r}")
+    print(f"Labeled image saved to: {output_dir / 'labeled_output.png'}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
