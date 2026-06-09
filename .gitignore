@@ -27,3 +27,6 @@ htmlcov/
 *.pt
 *.pth
 *.onnx
+
+
+.DS_store
