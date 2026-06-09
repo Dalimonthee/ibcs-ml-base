@@ -1,0 +1,6 @@
+x-axsis detection/Dataset
+x-axsis detection/.venv
+x-axsis detection/Output
+x-axsis detection/src
+x-axsis detection/yolo11n.pt
+.venv
