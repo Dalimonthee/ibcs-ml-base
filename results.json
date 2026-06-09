@@ -1,0 +1,87 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9553199410438538,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 1597,
+      "y1": 168,
+      "x2": 2432,
+      "y2": 1541
+    },
+    "crop_path": "outputs/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [
+        0.0,
+        50.0,
+        100.0,
+        150.0,
+        200.0,
+        250.0,
+        300.0
+      ],
+      "ocr_numbers_count": 21,
+      "zero_source": "axis_group",
+      "reason": "Zero found directly in the selected value-axis label group"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9389249682426453,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 830,
+      "y1": 558,
+      "x2": 1639,
+      "y2": 1541
+    },
+    "crop_path": "outputs/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [
+        0.0,
+        50.0,
+        100.0,
+        150.0,
+        200.0,
+        250.0,
+        300.0
+      ],
+      "ocr_numbers_count": 21,
+      "zero_source": "bottom_left_rescue",
+      "reason": "Zero found by the bottom-left origin rescue pass"
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.5708906054496765,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 664,
+      "y1": 536,
+      "x2": 844,
+      "y2": 1541
+    },
+    "crop_path": "outputs/crops/chart_2_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 2,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    }
+  }
+]
