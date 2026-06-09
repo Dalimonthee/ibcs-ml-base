@@ -3,4 +3,14 @@ x-axsis detection/.venv
 x-axsis detection/Output
 x-axsis detection/src
 x-axsis detection/yolo11n.pt
+x-axis detection/Notebook/best_opencv_axis_detection_notebook.ipynb
+x-axis detection/Notebook/hybrid_yolo_opencv_axis_detection.ipynb
+x-axis detection/Notebook/opencv_axis_detection_line_support_scanning.ipynb
+x-axis detection/Notebook/opencv_axis_detection_line_support_scanning.html
+x-axis detection/Notebook/vlm_opencv_axis_detection_validation.ipynb
+x-axis detection/Notebook/x_axis_detection_bar_alignment_opencv.ipynb
+x-axis detection/Notebook/x_axis_detection_multiple_axes_opencv.ipynb
+x-axis detection/Notebook/x_axis_detection_opencv.ipynb
+x-axis detection/Notebook/x_axis_detection_separate_pipelines_opencv.ipynb
+x-axis detection/Notebook/x_axis_detection_smart_opencv.ipynb
 .venv
