@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fuse Roboflow bar-chart detection with start-at-zero checking.
+Fuse Roboflow bar-chart detection with start-at-zero checking and label detection.
 
 This script is intentionally compatible with visualize_results_notebook.ipynb.
 It writes results.json as a LIST of chart result objects with these fields:
@@ -12,6 +12,7 @@ It writes results.json as a LIST of chart result objects with these fields:
 - bbox_xyxy: {x1, y1, x2, y2}
 - crop_path
 - start_at_zero_result
+- label_detection_result
 
 Example:
     export ROBOFLOW_API_KEY="your_api_key"
@@ -39,6 +40,8 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 import cv2
 import numpy as np
 from inference_sdk import InferenceHTTPClient
+
+from label_detection import detect_data_labels, draw_label_overlay
 
 try:
     import easyocr  # type: ignore
@@ -718,7 +721,9 @@ def draw_labeled_image(image_path: Path | str, results: Sequence[Dict[str, Any]]
         starts = zero.get("starts_at_zero")
         label = item.get("detector_label", "unknown")
         chart_id = item.get("chart_id", "?")
-        text = f"#{chart_id} {label} | zero={starts} | {status}"
+        label_result = item.get("label_detection_result", {})
+        label_count = label_result.get("label_count", 0)
+        text = f"#{chart_id} {label} | zero={starts} | {status} | labels={label_count}"
 
         color = (0, 180, 0) if status == "compliant" else (0, 0, 255)
         cv2.rectangle(image, (x1, y1), (x2, y2), color, 3)
@@ -743,6 +748,7 @@ def build_visualizer_item(
     bbox: Tuple[int, int, int, int],
     crop_path: Path,
     zero_result: Dict[str, Any],
+    label_result: Dict[str, Any],
 ) -> Dict[str, Any]:
     x1, y1, x2, y2 = bbox
     return {
@@ -753,6 +759,7 @@ def build_visualizer_item(
         "bbox_xyxy": {"x1": x1, "y1": y1, "x2": x2, "y2": y2},
         "crop_path": str(crop_path),
         "start_at_zero_result": zero_result,
+        "label_detection_result": label_result,
     }
 
 
@@ -771,6 +778,8 @@ def analyze_image(
     output_dir.mkdir(parents=True, exist_ok=True)
     crops_dir = output_dir / "crops"
     crops_dir.mkdir(parents=True, exist_ok=True)
+    label_overlays_dir = output_dir / "label_overlays"
+    label_overlays_dir.mkdir(parents=True, exist_ok=True)
 
     image = cv2.imread(str(image_path))
     if image is None:
@@ -817,6 +826,26 @@ def analyze_image(
             assume_compliant_if_axis_missing=assume_compliant_if_axis_missing,
         )
 
+        print(f"Detecting data labels for chart {chart_id}...")
+        label_result = detect_data_labels(
+            crop_path,
+            orientation=orientation,
+            reader=get_easyocr_reader(),
+        )
+        print(
+            f"  label status={label_result.get('status')}, "
+            f"count={label_result.get('label_count', 0)}"
+        )
+
+        if label_result.get("labels"):
+            draw_label_overlay(
+                crop,
+                label_result["labels"],
+                label_result.get("axis_position"),
+                orientation,
+                label_overlays_dir / f"chart_{chart_id}.png",
+            )
+
         results.append(
             build_visualizer_item(
                 chart_id=chart_id,
@@ -825,6 +854,7 @@ def analyze_image(
                 bbox=bbox,
                 crop_path=crop_path,
                 zero_result=zero_result,
+                label_result=label_result,
             )
         )
 
@@ -842,6 +872,7 @@ def analyze_image(
         "num_analyzed_charts": len(results),
         "results_json": str(output_json),
         "labeled_output": str(output_dir / "labeled_output.png"),
+        "label_overlays_dir": str(label_overlays_dir),
         "raw_result_json": str(output_dir / "roboflow_raw_result.json"),
         "tesseract_available": TESSERACT_AVAILABLE,
     }

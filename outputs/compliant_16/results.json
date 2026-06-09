@@ -1,0 +1,64 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.937667727470398,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 433,
+      "y1": 221,
+      "x2": 905,
+      "y2": 414
+    },
+    "crop_path": "outputs/compliant_16/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 12,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_labels",
+      "orientation": "vertical",
+      "axis_position": 153,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Axis detected but no numeric data labels found above/right of axis"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9199900031089783,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 0,
+      "y1": 220,
+      "x2": 481,
+      "y2": 414
+    },
+    "crop_path": "outputs/compliant_16/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 15,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_labels",
+      "orientation": "vertical",
+      "axis_position": 155,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Axis detected but no numeric data labels found above/right of axis"
+    }
+  }
+]

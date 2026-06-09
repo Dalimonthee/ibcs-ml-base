@@ -1,0 +1,473 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.9232494831085205,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 12,
+      "y1": 43,
+      "x2": 474,
+      "y2": 263
+    },
+    "crop_path": "outputs/predictions_compliant_8/crops/chart_0_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 8,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "horizontal",
+      "axis_position": 24,
+      "labels": [
+        {
+          "text": "Apr 2021",
+          "value": 2021.0,
+          "confidence": 0.9778697214177557,
+          "bbox_xyxy": {
+            "x1": 53,
+            "y1": 3,
+            "x2": 129,
+            "y2": 23
+          },
+          "cx": 91.0,
+          "cy": 13.0,
+          "relative_position": {
+            "x1": 0.114719,
+            "y1": 0.013636,
+            "x2": 0.279221,
+            "y2": 0.104545,
+            "cx": 0.19697,
+            "cy": 0.059091
+          },
+          "relative_to_axis": {
+            "along_axis": 0.059091,
+            "from_axis": 0.152968
+          }
+        },
+        {
+          "text": "12.8",
+          "value": 12.8,
+          "confidence": 0.7634623217482327,
+          "bbox_xyxy": {
+            "x1": 384,
+            "y1": 44,
+            "x2": 424,
+            "y2": 68
+          },
+          "cx": 404.0,
+          "cy": 56.0,
+          "relative_position": {
+            "x1": 0.831169,
+            "y1": 0.2,
+            "x2": 0.917749,
+            "y2": 0.309091,
+            "cx": 0.874459,
+            "cy": 0.254545
+          },
+          "relative_to_axis": {
+            "along_axis": 0.254545,
+            "from_axis": 0.86758
+          }
+        },
+        {
+          "text": "Rome",
+          "value": 0.0,
+          "confidence": 0.9999833106994629,
+          "bbox_xyxy": {
+            "x1": 37,
+            "y1": 109,
+            "x2": 94,
+            "y2": 134
+          },
+          "cx": 65.5,
+          "cy": 121.5,
+          "relative_position": {
+            "x1": 0.080087,
+            "y1": 0.495455,
+            "x2": 0.203463,
+            "y2": 0.609091,
+            "cx": 0.141775,
+            "cy": 0.552273
+          },
+          "relative_to_axis": {
+            "along_axis": 0.552273,
+            "from_axis": 0.094749
+          }
+        },
+        {
+          "text": "9.9",
+          "value": 9.9,
+          "confidence": 0.9811246991157532,
+          "bbox_xyxy": {
+            "x1": 323,
+            "y1": 113,
+            "x2": 349,
+            "y2": 131
+          },
+          "cx": 336.0,
+          "cy": 122.0,
+          "relative_position": {
+            "x1": 0.699134,
+            "y1": 0.513636,
+            "x2": 0.755411,
+            "y2": 0.595455,
+            "cx": 0.727273,
+            "cy": 0.554545
+          },
+          "relative_to_axis": {
+            "along_axis": 0.554545,
+            "from_axis": 0.712329
+          }
+        },
+        {
+          "text": "3.0",
+          "value": 3.0,
+          "confidence": 0.9992491514032485,
+          "bbox_xyxy": {
+            "x1": 165,
+            "y1": 147,
+            "x2": 195,
+            "y2": 163
+          },
+          "cx": 180.0,
+          "cy": 155.0,
+          "relative_position": {
+            "x1": 0.357143,
+            "y1": 0.668182,
+            "x2": 0.422078,
+            "y2": 0.740909,
+            "cx": 0.38961,
+            "cy": 0.704545
+          },
+          "relative_to_axis": {
+            "along_axis": 0.704545,
+            "from_axis": 0.356164
+          }
+        },
+        {
+          "text": "4.1",
+          "value": 4.1,
+          "confidence": 0.9965868981458583,
+          "bbox_xyxy": {
+            "x1": 193,
+            "y1": 181,
+            "x2": 217,
+            "y2": 197
+          },
+          "cx": 205.0,
+          "cy": 189.0,
+          "relative_position": {
+            "x1": 0.417749,
+            "y1": 0.822727,
+            "x2": 0.469697,
+            "y2": 0.895455,
+            "cx": 0.443723,
+            "cy": 0.859091
+          },
+          "relative_to_axis": {
+            "along_axis": 0.859091,
+            "from_axis": 0.413242
+          }
+        },
+        {
+          "text": "531",
+          "value": 531.0,
+          "confidence": 0.9464549422264099,
+          "bbox_xyxy": {
+            "x1": 243,
+            "y1": 199,
+            "x2": 275,
+            "y2": 219
+          },
+          "cx": 259.0,
+          "cy": 209.0,
+          "relative_position": {
+            "x1": 0.525974,
+            "y1": 0.904545,
+            "x2": 0.595238,
+            "y2": 0.995455,
+            "cx": 0.560606,
+            "cy": 0.95
+          },
+          "relative_to_axis": {
+            "along_axis": 0.95,
+            "from_axis": 0.53653
+          }
+        }
+      ],
+      "label_count": 7,
+      "reason": "Found 7 numeric data label(s)"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8907611966133118,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 325,
+      "y1": 211,
+      "x2": 604,
+      "y2": 437
+    },
+    "crop_path": "outputs/predictions_compliant_8/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 4,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 224,
+      "labels": [
+        {
+          "text": "531",
+          "value": 531.0,
+          "confidence": 0.9999991740938607,
+          "bbox_xyxy": {
+            "x1": 203,
+            "y1": 31,
+            "x2": 237,
+            "y2": 51
+          },
+          "cx": 220.0,
+          "cy": 41.0,
+          "relative_position": {
+            "x1": 0.727599,
+            "y1": 0.137168,
+            "x2": 0.849462,
+            "y2": 0.225664,
+            "cx": 0.78853,
+            "cy": 0.181416
+          },
+          "relative_to_axis": {
+            "along_axis": 0.78853,
+            "from_axis": 0.816964
+          }
+        },
+        {
+          "text": "450",
+          "value": 450.0,
+          "confidence": 0.9999976599328428,
+          "bbox_xyxy": {
+            "x1": 149,
+            "y1": 49,
+            "x2": 185,
+            "y2": 69
+          },
+          "cx": 167.0,
+          "cy": 59.0,
+          "relative_position": {
+            "x1": 0.53405,
+            "y1": 0.216814,
+            "x2": 0.663082,
+            "y2": 0.30531,
+            "cx": 0.598566,
+            "cy": 0.261062
+          },
+          "relative_to_axis": {
+            "along_axis": 0.598566,
+            "from_axis": 0.736607
+          }
+        },
+        {
+          "text": "328",
+          "value": 328.0,
+          "confidence": 0.9999991052683532,
+          "bbox_xyxy": {
+            "x1": 95,
+            "y1": 79,
+            "x2": 131,
+            "y2": 99
+          },
+          "cx": 113.0,
+          "cy": 89.0,
+          "relative_position": {
+            "x1": 0.340502,
+            "y1": 0.349558,
+            "x2": 0.469534,
+            "y2": 0.438053,
+            "cx": 0.405018,
+            "cy": 0.393805
+          },
+          "relative_to_axis": {
+            "along_axis": 0.405018,
+            "from_axis": 0.602679
+          }
+        },
+        {
+          "text": "122",
+          "value": 122.0,
+          "confidence": 0.9999988987918347,
+          "bbox_xyxy": {
+            "x1": 42,
+            "y1": 120,
+            "x2": 78,
+            "y2": 144
+          },
+          "cx": 60.0,
+          "cy": 132.0,
+          "relative_position": {
+            "x1": 0.150538,
+            "y1": 0.530973,
+            "x2": 0.27957,
+            "y2": 0.637168,
+            "cx": 0.215054,
+            "cy": 0.584071
+          },
+          "relative_to_axis": {
+            "along_axis": 0.215054,
+            "from_axis": 0.410714
+          }
+        }
+      ],
+      "label_count": 4,
+      "reason": "Found 4 numeric data label(s)"
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8680821061134338,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 36,
+      "y1": 231,
+      "x2": 329,
+      "y2": 435
+    },
+    "crop_path": "outputs/predictions_compliant_8/crops/chart_2_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 4,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 202,
+      "labels": [
+        {
+          "text": "531",
+          "value": 531.0,
+          "confidence": 0.9977926015853882,
+          "bbox_xyxy": {
+            "x1": 217,
+            "y1": 11,
+            "x2": 251,
+            "y2": 31
+          },
+          "cx": 234.0,
+          "cy": 21.0,
+          "relative_position": {
+            "x1": 0.740614,
+            "y1": 0.053922,
+            "x2": 0.856655,
+            "y2": 0.151961,
+            "cx": 0.798635,
+            "cy": 0.102941
+          },
+          "relative_to_axis": {
+            "along_axis": 0.798635,
+            "from_axis": 0.89604
+          }
+        },
+        {
+          "text": "450",
+          "value": 450.0,
+          "confidence": 0.8910190940519055,
+          "bbox_xyxy": {
+            "x1": 163,
+            "y1": 29,
+            "x2": 197,
+            "y2": 49
+          },
+          "cx": 180.0,
+          "cy": 39.0,
+          "relative_position": {
+            "x1": 0.556314,
+            "y1": 0.142157,
+            "x2": 0.672355,
+            "y2": 0.240196,
+            "cx": 0.614334,
+            "cy": 0.191176
+          },
+          "relative_to_axis": {
+            "along_axis": 0.614334,
+            "from_axis": 0.806931
+          }
+        },
+        {
+          "text": "328",
+          "value": 328.0,
+          "confidence": 0.9999991052683532,
+          "bbox_xyxy": {
+            "x1": 111,
+            "y1": 59,
+            "x2": 143,
+            "y2": 77
+          },
+          "cx": 127.0,
+          "cy": 68.0,
+          "relative_position": {
+            "x1": 0.37884,
+            "y1": 0.289216,
+            "x2": 0.488055,
+            "y2": 0.377451,
+            "cx": 0.433447,
+            "cy": 0.333333
+          },
+          "relative_to_axis": {
+            "along_axis": 0.433447,
+            "from_axis": 0.663366
+          }
+        },
+        {
+          "text": "122",
+          "value": 122.0,
+          "confidence": 0.5045142769813538,
+          "bbox_xyxy": {
+            "x1": 54,
+            "y1": 100,
+            "x2": 90,
+            "y2": 124
+          },
+          "cx": 72.0,
+          "cy": 112.0,
+          "relative_position": {
+            "x1": 0.1843,
+            "y1": 0.490196,
+            "x2": 0.307167,
+            "y2": 0.607843,
+            "cx": 0.245734,
+            "cy": 0.54902
+          },
+          "relative_to_axis": {
+            "along_axis": 0.245734,
+            "from_axis": 0.445545
+          }
+        }
+      ],
+      "label_count": 4,
+      "reason": "Found 4 numeric data label(s)"
+    }
+  }
+]

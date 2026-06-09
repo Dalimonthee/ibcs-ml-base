@@ -1,0 +1,18 @@
+{
+  "image_path": "predictions/Compliant/8.png",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 604,
+    "height": 447
+  },
+  "num_raw_predictions": 3,
+  "num_analyzed_charts": 3,
+  "results_json": "outputs/predictions_compliant_8/results.json",
+  "labeled_output": "outputs/predictions_compliant_8/labeled_output.png",
+  "label_overlays_dir": "outputs/predictions_compliant_8/label_overlays",
+  "raw_result_json": "outputs/predictions_compliant_8/roboflow_raw_result.json",
+  "tesseract_available": false
+}
