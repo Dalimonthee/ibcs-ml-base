@@ -178,7 +178,7 @@ def sidebar_controls(image_choices: list[str]) -> tuple[str, Params, dict]:
         oriented_source = st.selectbox(
             "Source",
             options=ORIENTED_SOURCES,
-            index=ORIENTED_SOURCES.index("Mask A"),
+            index=ORIENTED_SOURCES.index("grayscale"),
             help="Which image to run the kernels on. Binary masks (A/B/C/"
                  "filled/Combined/winner) give the cleanest results. "
                  "'grayscale' is auto-inverted when the background is light so "
@@ -194,7 +194,7 @@ def sidebar_controls(image_choices: list[str]) -> tuple[str, Params, dict]:
         )
         oriented_threshold_frac = st.slider(
             "Response threshold (fraction of peak)",
-            0.0, 1.0, 0.85, step=0.05,
+            0.0, 1.0, 0.4, step=0.05,
             help="A pixel is a corner if its kernel response >= this fraction "
                  "of the strongest response. 0.67 = a straight edge starts "
                  "leaking through, so keep at 0.80+ to isolate true corners.",

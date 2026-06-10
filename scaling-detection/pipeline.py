@@ -994,8 +994,66 @@ def run_pipeline(bgr: np.ndarray, p: Params) -> dict:
     }
 
 
+def app_default_params() -> Params:
+    """Streamlit app sidebar defaults (scaling-detection/app.py)."""
+    return Params(
+        invert_input=False,
+        black_max=60,
+        grey_low=80,
+        grey_high=190,
+        canny_low=50,
+        canny_high=150,
+        hatch_close_iters=2,
+        noise_keep_frac=0.0,
+        proj_threshold_frac=0.10,
+        min_area_floor=100,
+        min_area_fraction=0.05,
+        min_fill_ratio=0.55,
+        min_bar_w=4,
+        min_bar_h=4,
+        max_aspect=25.0,
+        corner_enabled=False,
+        corner_source="winner mask",
+        corner_max=300,
+        corner_quality=0.01,
+        corner_min_dist=6,
+        oriented_enabled=True,
+        oriented_source="grayscale",
+        oriented_kernel_size=16,
+        oriented_threshold_frac=0.4,
+        oriented_min_dist=6,
+        bbox_from_corners_enabled=True,
+        bbox_axis_types=("TR_convex", "TR_concave", "TL_concave", "TL_convex"),
+        bbox_axis_y_tolerance=4,
+        bbox_axis_min_count=3,
+        bbox_axis_max_count=5,
+        bbox_pair_y_tolerance=6,
+        bbox_min_width=6,
+        bbox_max_width_frac=0.30,
+        bbox_min_height=8,
+        bbox_max_height_frac=0.60,
+        axis_use_corners=True,
+        axis_use_morph=True,
+        axis_use_hough=True,
+        axis_corner_weight=1.5,
+        axis_morph_weight=1.5,
+        axis_hough_weight=1.5,
+        axis_min_total_support=0.3,
+        axis_morph_kernel_w_frac=0.15,
+        axis_morph_abs_floor=200,
+        axis_morph_rel_floor=0.30,
+        axis_hough_min_len_frac=0.20,
+        axis_hough_threshold=80,
+        axis_hough_max_gap=20,
+        axis_hough_angle_tol_deg=2.0,
+        floor_enabled=True,
+        floor_source="winner mask",
+        floor_active_frac=0.5,
+    )
+
+
 def default_params() -> Params:
-    """Sidebar-default parameters for reproducible runs outside Streamlit."""
+    """Legacy defaults for benchmarks; prefer app_default_params() for CLI."""
     return Params(
         invert_input=False,
         black_max=60,

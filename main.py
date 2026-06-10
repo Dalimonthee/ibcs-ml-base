@@ -13,6 +13,7 @@ It writes results.json as a LIST of chart result objects with these fields:
 - crop_path
 - start_at_zero_result
 - label_detection_result
+- bar_detection_result
 
 Example:
     export ROBOFLOW_API_KEY="your_api_key"
@@ -41,6 +42,7 @@ import cv2
 import numpy as np
 from inference_sdk import InferenceHTTPClient
 
+from bar_detection import detect_bars, draw_bar_overlay
 from label_detection import detect_data_labels, draw_label_overlay
 
 try:
@@ -749,6 +751,7 @@ def build_visualizer_item(
     crop_path: Path,
     zero_result: Dict[str, Any],
     label_result: Dict[str, Any],
+    bar_result: Dict[str, Any],
 ) -> Dict[str, Any]:
     x1, y1, x2, y2 = bbox
     return {
@@ -760,6 +763,7 @@ def build_visualizer_item(
         "crop_path": str(crop_path),
         "start_at_zero_result": zero_result,
         "label_detection_result": label_result,
+        "bar_detection_result": bar_result,
     }
 
 
@@ -780,6 +784,8 @@ def analyze_image(
     crops_dir.mkdir(parents=True, exist_ok=True)
     label_overlays_dir = output_dir / "label_overlays"
     label_overlays_dir.mkdir(parents=True, exist_ok=True)
+    bar_overlays_dir = output_dir / "bar_overlays"
+    bar_overlays_dir.mkdir(parents=True, exist_ok=True)
 
     image = cv2.imread(str(image_path))
     if image is None:
@@ -846,6 +852,22 @@ def analyze_image(
                 label_overlays_dir / f"chart_{chart_id}.png",
             )
 
+        print(f"Detecting bars for chart {chart_id}...")
+        bar_result = detect_bars(crop, orientation=orientation)
+        if bar_result.get("status") != "skipped":
+            overlay_path = draw_bar_overlay(
+                bar_result["_pipeline_out"],
+                bar_overlays_dir / f"chart_{chart_id}.png",
+            )
+            bar_result["overlay_path"] = overlay_path
+            bar_result.pop("_pipeline_out", None)
+            print(
+                f"  bar status={bar_result.get('status')}, "
+                f"count={bar_result.get('bar_count', 0)}"
+            )
+        else:
+            print(f"  bar detection skipped: {bar_result.get('reason')}")
+
         results.append(
             build_visualizer_item(
                 chart_id=chart_id,
@@ -855,6 +877,7 @@ def analyze_image(
                 crop_path=crop_path,
                 zero_result=zero_result,
                 label_result=label_result,
+                bar_result=bar_result,
             )
         )
 
@@ -873,6 +896,15 @@ def analyze_image(
         "results_json": str(output_json),
         "labeled_output": str(output_dir / "labeled_output.png"),
         "label_overlays_dir": str(label_overlays_dir),
+        "bar_overlays_dir": str(bar_overlays_dir),
+        "bar_detection_counts": [
+            {
+                "chart_id": item["chart_id"],
+                "status": item.get("bar_detection_result", {}).get("status"),
+                "bar_count": item.get("bar_detection_result", {}).get("bar_count", 0),
+            }
+            for item in results
+        ],
         "raw_result_json": str(output_dir / "roboflow_raw_result.json"),
         "tesseract_available": TESSERACT_AVAILABLE,
     }
