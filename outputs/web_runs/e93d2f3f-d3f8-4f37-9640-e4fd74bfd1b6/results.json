@@ -1,0 +1,128 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.8975903391838074,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 334,
+      "y1": 219,
+      "x2": 572,
+      "y2": 391
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/e93d2f3f-d3f8-4f37-9640-e4fd74bfd1b6/crops/chart_0_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 3,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "horizontal",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect y-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.7603325247764587,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 136,
+      "y1": 245,
+      "x2": 342,
+      "y2": 391
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/e93d2f3f-d3f8-4f37-9640-e4fd74bfd1b6/crops/chart_1_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 0,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "horizontal",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect y-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.517448365688324,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 0,
+      "y1": 87,
+      "x2": 341,
+      "y2": 220
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/e93d2f3f-d3f8-4f37-9640-e4fd74bfd1b6/crops/chart_2_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 4,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "horizontal",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect y-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  }
+]

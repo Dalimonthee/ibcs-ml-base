@@ -1,0 +1,496 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.7765880823135376,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 0,
+      "y1": 76,
+      "x2": 586,
+      "y2": 540
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e7a55ec1-1041-4e6b-bedd-47e7ab06fae6/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "non_compliant",
+      "starts_at_zero": false,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [
+        80.0,
+        81.0,
+        82.0
+      ],
+      "ocr_numbers_count": 6,
+      "zero_source": null,
+      "reason": "Value-axis labels detected, but zero was not found"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 379,
+      "labels": [
+        {
+          "text": "Ilassive Mnciease mn nouse",
+          "value": 0.0,
+          "confidence": 0.07953096978321346,
+          "bbox_xyxy": {
+            "x1": 255,
+            "y1": 0,
+            "x2": 551,
+            "y2": 17
+          },
+          "cx": 403.0,
+          "cy": 8.5,
+          "relative_position": {
+            "x1": 0.435154,
+            "y1": 0.0,
+            "x2": 0.940273,
+            "y2": 0.036638,
+            "cx": 0.687713,
+            "cy": 0.018319
+          },
+          "relative_to_axis": {
+            "along_axis": 0.687713,
+            "from_axis": 0.977573
+          }
+        },
+        {
+          "text": "82 O00",
+          "value": 82.0,
+          "confidence": 0.7690457933551244,
+          "bbox_xyxy": {
+            "x1": 142,
+            "y1": 90,
+            "x2": 226,
+            "y2": 120
+          },
+          "cx": 184.0,
+          "cy": 105.0,
+          "relative_position": {
+            "x1": 0.242321,
+            "y1": 0.193966,
+            "x2": 0.385666,
+            "y2": 0.258621,
+            "cx": 0.313993,
+            "cy": 0.226293
+          },
+          "relative_to_axis": {
+            "along_axis": 0.313993,
+            "from_axis": 0.722955
+          }
+        },
+        {
+          "text": "house",
+          "value": 0.0,
+          "confidence": 0.9988921038652995,
+          "bbox_xyxy": {
+            "x1": 16,
+            "y1": 176,
+            "x2": 90,
+            "y2": 204
+          },
+          "cx": 53.0,
+          "cy": 190.0,
+          "relative_position": {
+            "x1": 0.027304,
+            "y1": 0.37931,
+            "x2": 0.153584,
+            "y2": 0.439655,
+            "cx": 0.090444,
+            "cy": 0.409483
+          },
+          "relative_to_axis": {
+            "along_axis": 0.090444,
+            "from_axis": 0.498681
+          }
+        },
+        {
+          "text": "81 O00",
+          "value": 81.0,
+          "confidence": 0.7923867347550227,
+          "bbox_xyxy": {
+            "x1": 142,
+            "y1": 180,
+            "x2": 226,
+            "y2": 208
+          },
+          "cx": 184.0,
+          "cy": 194.0,
+          "relative_position": {
+            "x1": 0.242321,
+            "y1": 0.387931,
+            "x2": 0.385666,
+            "y2": 0.448276,
+            "cx": 0.313993,
+            "cy": 0.418103
+          },
+          "relative_to_axis": {
+            "along_axis": 0.313993,
+            "from_axis": 0.488127
+          }
+        },
+        {
+          "text": "80 000",
+          "value": 80.0,
+          "confidence": 0.570788954713265,
+          "bbox_xyxy": {
+            "x1": 140,
+            "y1": 270,
+            "x2": 226,
+            "y2": 300
+          },
+          "cx": 183.0,
+          "cy": 285.0,
+          "relative_position": {
+            "x1": 0.238908,
+            "y1": 0.581897,
+            "x2": 0.385666,
+            "y2": 0.646552,
+            "cx": 0.312287,
+            "cy": 0.614224
+          },
+          "relative_to_axis": {
+            "along_axis": 0.312287,
+            "from_axis": 0.248021
+          }
+        }
+      ],
+      "label_count": 5,
+      "reason": "Found 5 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "C",
+      "winner_score": 13.938456875097675,
+      "bar_count": 26,
+      "bars": [
+        {
+          "x": 376,
+          "y": 107,
+          "w": 8,
+          "h": 331,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 23,
+          "y": 154,
+          "w": 8,
+          "h": 284,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 388,
+          "y": 27,
+          "w": 34,
+          "h": 15,
+          "close_source": "floor"
+        },
+        {
+          "x": 20,
+          "y": 181,
+          "w": 8,
+          "h": 257,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 285,
+          "y": 388,
+          "w": 51,
+          "h": 50,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 355,
+          "y": 29,
+          "w": 8,
+          "h": 14,
+          "close_source": "floor"
+        },
+        {
+          "x": 61,
+          "y": 215,
+          "w": 9,
+          "h": 223,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 20,
+          "y": 213,
+          "w": 77,
+          "h": 225,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 314,
+          "y": 29,
+          "w": 62,
+          "h": 13,
+          "close_source": "floor"
+        },
+        {
+          "x": 148,
+          "y": 94,
+          "w": 70,
+          "h": 344,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 148,
+          "y": 185,
+          "w": 8,
+          "h": 253,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 148,
+          "y": 274,
+          "w": 23,
+          "h": 164,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 62,
+          "y": 185,
+          "w": 8,
+          "h": 253,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 433,
+          "y": 30,
+          "w": 22,
+          "h": 13,
+          "close_source": "floor"
+        },
+        {
+          "x": 356,
+          "y": 424,
+          "w": 22,
+          "h": 14,
+          "close_source": "floor"
+        },
+        {
+          "x": 49,
+          "y": 157,
+          "w": 10,
+          "h": 281,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 445,
+          "y": 26,
+          "w": 42,
+          "h": 17,
+          "close_source": "floor"
+        },
+        {
+          "x": 504,
+          "y": 107,
+          "w": 8,
+          "h": 331,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 368,
+          "y": 32,
+          "w": 10,
+          "h": 11,
+          "close_source": "floor"
+        },
+        {
+          "x": 75,
+          "y": 185,
+          "w": 9,
+          "h": 253,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 99,
+          "y": 157,
+          "w": 9,
+          "h": 281,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 385,
+          "y": 425,
+          "w": 13,
+          "h": 13,
+          "close_source": "floor"
+        },
+        {
+          "x": 387,
+          "y": 107,
+          "w": 46,
+          "h": 331,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 433,
+          "y": 107,
+          "w": 44,
+          "h": 331,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 182,
+          "y": 184,
+          "w": 36,
+          "h": 254,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 182,
+          "y": 274,
+          "w": 36,
+          "h": 164,
+          "close_source": "floor+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 20,
+          "y": 154,
+          "w": 51,
+          "h": 17,
+          "fill_ratio": 0.833
+        },
+        {
+          "x": 20,
+          "y": 183,
+          "w": 51,
+          "h": 17,
+          "fill_ratio": 0.869
+        },
+        {
+          "x": 20,
+          "y": 212,
+          "w": 51,
+          "h": 18,
+          "fill_ratio": 0.847
+        },
+        {
+          "x": 73,
+          "y": 156,
+          "w": 23,
+          "h": 20,
+          "fill_ratio": 0.887
+        },
+        {
+          "x": 73,
+          "y": 210,
+          "w": 23,
+          "h": 23,
+          "fill_ratio": 0.671
+        },
+        {
+          "x": 146,
+          "y": 94,
+          "w": 25,
+          "h": 20,
+          "fill_ratio": 0.95
+        },
+        {
+          "x": 146,
+          "y": 184,
+          "w": 25,
+          "h": 20,
+          "fill_ratio": 0.818
+        },
+        {
+          "x": 146,
+          "y": 274,
+          "w": 25,
+          "h": 20,
+          "fill_ratio": 0.942
+        },
+        {
+          "x": 181,
+          "y": 94,
+          "w": 38,
+          "h": 20,
+          "fill_ratio": 0.942
+        },
+        {
+          "x": 181,
+          "y": 184,
+          "w": 38,
+          "h": 20,
+          "fill_ratio": 0.942
+        },
+        {
+          "x": 181,
+          "y": 274,
+          "w": 38,
+          "h": 20,
+          "fill_ratio": 0.942
+        },
+        {
+          "x": 259,
+          "y": 0,
+          "w": 143,
+          "h": 14,
+          "fill_ratio": 0.929
+        },
+        {
+          "x": 414,
+          "y": 0,
+          "w": 60,
+          "h": 14,
+          "fill_ratio": 0.911
+        },
+        {
+          "x": 414,
+          "y": 28,
+          "w": 60,
+          "h": 17,
+          "fill_ratio": 0.865
+        },
+        {
+          "x": 414,
+          "y": 379,
+          "w": 60,
+          "h": 27,
+          "fill_ratio": 0.809
+        },
+        {
+          "x": 507,
+          "y": 0,
+          "w": 52,
+          "h": 14,
+          "fill_ratio": 0.782
+        }
+      ],
+      "axes": [
+        {
+          "y": 7,
+          "weight": 1.5,
+          "source": "hough"
+        },
+        {
+          "y": 29,
+          "weight": 1.393,
+          "source": "corner"
+        },
+        {
+          "y": 62,
+          "weight": 1.8,
+          "source": "hough+morph"
+        },
+        {
+          "y": 107,
+          "weight": 2.443,
+          "source": "corner+hough+morph"
+        },
+        {
+          "y": 287,
+          "weight": 2.098,
+          "source": "corner+hough+morph"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e7a55ec1-1041-4e6b-bedd-47e7ab06fae6/bar_overlays/chart_0.png"
+    }
+  }
+]

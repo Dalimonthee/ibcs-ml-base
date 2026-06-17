@@ -1,0 +1,1462 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9135423302650452,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 288,
+      "y1": 234,
+      "x2": 1563,
+      "y2": 628
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/649556ba-0da2-4835-9f65-a41579465d5a/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 34,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 389,
+      "labels": [
+        {
+          "text": "Zoom-out",
+          "value": 0.0,
+          "confidence": 0.999859685744061,
+          "bbox_xyxy": {
+            "x1": 142,
+            "y1": 24,
+            "x2": 234,
+            "y2": 48
+          },
+          "cx": 188.0,
+          "cy": 36.0,
+          "relative_position": {
+            "x1": 0.111373,
+            "y1": 0.060914,
+            "x2": 0.183529,
+            "y2": 0.121827,
+            "cx": 0.147451,
+            "cy": 0.091371
+          },
+          "relative_to_axis": {
+            "along_axis": 0.147451,
+            "from_axis": 0.907455
+          }
+        },
+        {
+          "text": "1990",
+          "value": 1990.0,
+          "confidence": 0.9999675154685974,
+          "bbox_xyxy": {
+            "x1": 197,
+            "y1": 327,
+            "x2": 241,
+            "y2": 347
+          },
+          "cx": 219.0,
+          "cy": 337.0,
+          "relative_position": {
+            "x1": 0.15451,
+            "y1": 0.829949,
+            "x2": 0.18902,
+            "y2": 0.880711,
+            "cx": 0.171765,
+            "cy": 0.85533
+          },
+          "relative_to_axis": {
+            "along_axis": 0.171765,
+            "from_axis": 0.133676
+          }
+        },
+        {
+          "text": "1999",
+          "value": 1999.0,
+          "confidence": 0.993853747844696,
+          "bbox_xyxy": {
+            "x1": 253,
+            "y1": 327,
+            "x2": 295,
+            "y2": 347
+          },
+          "cx": 274.0,
+          "cy": 337.0,
+          "relative_position": {
+            "x1": 0.198431,
+            "y1": 0.829949,
+            "x2": 0.231373,
+            "y2": 0.880711,
+            "cx": 0.214902,
+            "cy": 0.85533
+          },
+          "relative_to_axis": {
+            "along_axis": 0.214902,
+            "from_axis": 0.133676
+          }
+        },
+        {
+          "text": "2000",
+          "value": 2000.0,
+          "confidence": 0.9900520380372635,
+          "bbox_xyxy": {
+            "x1": 519,
+            "y1": 327,
+            "x2": 563,
+            "y2": 347
+          },
+          "cx": 541.0,
+          "cy": 337.0,
+          "relative_position": {
+            "x1": 0.407059,
+            "y1": 0.829949,
+            "x2": 0.441569,
+            "y2": 0.880711,
+            "cx": 0.424314,
+            "cy": 0.85533
+          },
+          "relative_to_axis": {
+            "along_axis": 0.424314,
+            "from_axis": 0.133676
+          }
+        },
+        {
+          "text": "2009",
+          "value": 2009.0,
+          "confidence": 0.9951538443565369,
+          "bbox_xyxy": {
+            "x1": 572,
+            "y1": 324,
+            "x2": 618,
+            "y2": 348
+          },
+          "cx": 595.0,
+          "cy": 336.0,
+          "relative_position": {
+            "x1": 0.448627,
+            "y1": 0.822335,
+            "x2": 0.484706,
+            "y2": 0.883249,
+            "cx": 0.466667,
+            "cy": 0.852792
+          },
+          "relative_to_axis": {
+            "along_axis": 0.466667,
+            "from_axis": 0.136247
+          }
+        },
+        {
+          "text": "2010",
+          "value": 2010.0,
+          "confidence": 0.9402180449122065,
+          "bbox_xyxy": {
+            "x1": 874,
+            "y1": 324,
+            "x2": 922,
+            "y2": 348
+          },
+          "cx": 898.0,
+          "cy": 336.0,
+          "relative_position": {
+            "x1": 0.68549,
+            "y1": 0.822335,
+            "x2": 0.723137,
+            "y2": 0.883249,
+            "cx": 0.704314,
+            "cy": 0.852792
+          },
+          "relative_to_axis": {
+            "along_axis": 0.704314,
+            "from_axis": 0.136247
+          }
+        },
+        {
+          "text": "2019",
+          "value": 2019.0,
+          "confidence": 0.9991160406644193,
+          "bbox_xyxy": {
+            "x1": 930,
+            "y1": 324,
+            "x2": 976,
+            "y2": 348
+          },
+          "cx": 953.0,
+          "cy": 336.0,
+          "relative_position": {
+            "x1": 0.729412,
+            "y1": 0.822335,
+            "x2": 0.76549,
+            "y2": 0.883249,
+            "cx": 0.747451,
+            "cy": 0.852792
+          },
+          "relative_to_axis": {
+            "along_axis": 0.747451,
+            "from_axis": 0.136247
+          }
+        }
+      ],
+      "label_count": 7,
+      "reason": "Found 7 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "C",
+      "winner_score": 58.082600615568104,
+      "bar_count": 31,
+      "bars": [
+        {
+          "x": 1001,
+          "y": 129,
+          "w": 26,
+          "h": 259,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 214,
+          "y": 272,
+          "w": 26,
+          "h": 116,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 643,
+          "y": 210,
+          "w": 27,
+          "h": 178,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 822,
+          "y": 202,
+          "w": 27,
+          "h": 186,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 858,
+          "y": 197,
+          "w": 26,
+          "h": 191,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 536,
+          "y": 218,
+          "w": 27,
+          "h": 170,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 1037,
+          "y": 124,
+          "w": 26,
+          "h": 264,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 965,
+          "y": 164,
+          "w": 27,
+          "h": 224,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 429,
+          "y": 253,
+          "w": 26,
+          "h": 135,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 930,
+          "y": 175,
+          "w": 26,
+          "h": 213,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 715,
+          "y": 221,
+          "w": 26,
+          "h": 167,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 572,
+          "y": 226,
+          "w": 26,
+          "h": 162,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 286,
+          "y": 264,
+          "w": 26,
+          "h": 124,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 322,
+          "y": 256,
+          "w": 26,
+          "h": 132,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 1073,
+          "y": 132,
+          "w": 26,
+          "h": 256,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 107,
+          "y": 270,
+          "w": 26,
+          "h": 118,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 465,
+          "y": 237,
+          "w": 26,
+          "h": 151,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 679,
+          "y": 232,
+          "w": 26,
+          "h": 156,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 250,
+          "y": 270,
+          "w": 26,
+          "h": 118,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 894,
+          "y": 164,
+          "w": 26,
+          "h": 224,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 608,
+          "y": 224,
+          "w": 26,
+          "h": 164,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 393,
+          "y": 256,
+          "w": 26,
+          "h": 132,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 179,
+          "y": 267,
+          "w": 26,
+          "h": 121,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 787,
+          "y": 197,
+          "w": 26,
+          "h": 191,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 357,
+          "y": 259,
+          "w": 27,
+          "h": 129,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 500,
+          "y": 243,
+          "w": 27,
+          "h": 145,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 143,
+          "y": 285,
+          "w": 26,
+          "h": 103,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 1108,
+          "y": 132,
+          "w": 27,
+          "h": 256,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 751,
+          "y": 191,
+          "w": 26,
+          "h": 197,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 1144,
+          "y": 89,
+          "w": 27,
+          "h": 299,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 19,
+          "y": 6,
+          "w": 8,
+          "h": 11,
+          "close_source": "floor"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 0,
+          "y": 303,
+          "w": 7,
+          "h": 31,
+          "fill_ratio": 0.908
+        },
+        {
+          "x": 20,
+          "y": 0,
+          "w": 20,
+          "h": 23,
+          "fill_ratio": 0.811
+        },
+        {
+          "x": 20,
+          "y": 387,
+          "w": 20,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 115,
+          "y": 25,
+          "w": 24,
+          "h": 24,
+          "fill_ratio": 0.576
+        },
+        {
+          "x": 115,
+          "y": 387,
+          "w": 24,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 147,
+          "y": 28,
+          "w": 52,
+          "h": 17,
+          "fill_ratio": 0.756
+        },
+        {
+          "x": 147,
+          "y": 387,
+          "w": 52,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 200,
+          "y": 30,
+          "w": 33,
+          "h": 15,
+          "fill_ratio": 0.713
+        },
+        {
+          "x": 200,
+          "y": 330,
+          "w": 33,
+          "h": 14,
+          "fill_ratio": 0.939
+        },
+        {
+          "x": 200,
+          "y": 387,
+          "w": 33,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 235,
+          "y": 269,
+          "w": 16,
+          "h": 31,
+          "fill_ratio": 0.69
+        },
+        {
+          "x": 235,
+          "y": 387,
+          "w": 16,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 259,
+          "y": 330,
+          "w": 32,
+          "h": 14,
+          "fill_ratio": 0.98
+        },
+        {
+          "x": 259,
+          "y": 387,
+          "w": 32,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 294,
+          "y": 245,
+          "w": 11,
+          "h": 19,
+          "fill_ratio": 0.99
+        },
+        {
+          "x": 311,
+          "y": 265,
+          "w": 12,
+          "h": 34,
+          "fill_ratio": 0.855
+        },
+        {
+          "x": 329,
+          "y": 237,
+          "w": 11,
+          "h": 19,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 347,
+          "y": 257,
+          "w": 12,
+          "h": 43,
+          "fill_ratio": 0.841
+        },
+        {
+          "x": 365,
+          "y": 239,
+          "w": 11,
+          "h": 20,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 382,
+          "y": 258,
+          "w": 11,
+          "h": 36,
+          "fill_ratio": 0.899
+        },
+        {
+          "x": 401,
+          "y": 237,
+          "w": 11,
+          "h": 19,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 418,
+          "y": 253,
+          "w": 12,
+          "h": 46,
+          "fill_ratio": 0.817
+        },
+        {
+          "x": 437,
+          "y": 233,
+          "w": 11,
+          "h": 21,
+          "fill_ratio": 0.97
+        },
+        {
+          "x": 454,
+          "y": 253,
+          "w": 11,
+          "h": 46,
+          "fill_ratio": 0.915
+        },
+        {
+          "x": 470,
+          "y": 218,
+          "w": 14,
+          "h": 19,
+          "fill_ratio": 0.985
+        },
+        {
+          "x": 490,
+          "y": 238,
+          "w": 12,
+          "h": 62,
+          "fill_ratio": 0.801
+        },
+        {
+          "x": 509,
+          "y": 223,
+          "w": 11,
+          "h": 20,
+          "fill_ratio": 0.973
+        },
+        {
+          "x": 521,
+          "y": 330,
+          "w": 35,
+          "h": 14,
+          "fill_ratio": 0.996
+        },
+        {
+          "x": 521,
+          "y": 387,
+          "w": 35,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 557,
+          "y": 226,
+          "w": 17,
+          "h": 73,
+          "fill_ratio": 0.621
+        },
+        {
+          "x": 557,
+          "y": 387,
+          "w": 17,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 576,
+          "y": 330,
+          "w": 52,
+          "h": 14,
+          "fill_ratio": 0.709
+        },
+        {
+          "x": 576,
+          "y": 387,
+          "w": 52,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 633,
+          "y": 225,
+          "w": 13,
+          "h": 75,
+          "fill_ratio": 0.782
+        },
+        {
+          "x": 649,
+          "y": 191,
+          "w": 13,
+          "h": 19,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 668,
+          "y": 231,
+          "w": 13,
+          "h": 69,
+          "fill_ratio": 0.77
+        },
+        {
+          "x": 685,
+          "y": 212,
+          "w": 15,
+          "h": 20,
+          "fill_ratio": 0.963
+        },
+        {
+          "x": 685,
+          "y": 387,
+          "w": 15,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 704,
+          "y": 231,
+          "w": 12,
+          "h": 69,
+          "fill_ratio": 0.843
+        },
+        {
+          "x": 721,
+          "y": 201,
+          "w": 14,
+          "h": 20,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 737,
+          "y": 387,
+          "w": 17,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 755,
+          "y": 172,
+          "w": 15,
+          "h": 21,
+          "fill_ratio": 0.956
+        },
+        {
+          "x": 755,
+          "y": 387,
+          "w": 15,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 776,
+          "y": 191,
+          "w": 12,
+          "h": 109,
+          "fill_ratio": 0.81
+        },
+        {
+          "x": 791,
+          "y": 177,
+          "w": 15,
+          "h": 20,
+          "fill_ratio": 0.97
+        },
+        {
+          "x": 791,
+          "y": 387,
+          "w": 15,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 812,
+          "y": 198,
+          "w": 12,
+          "h": 102,
+          "fill_ratio": 0.813
+        },
+        {
+          "x": 827,
+          "y": 182,
+          "w": 15,
+          "h": 20,
+          "fill_ratio": 0.927
+        },
+        {
+          "x": 827,
+          "y": 387,
+          "w": 15,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 847,
+          "y": 198,
+          "w": 12,
+          "h": 102,
+          "fill_ratio": 0.814
+        },
+        {
+          "x": 864,
+          "y": 177,
+          "w": 14,
+          "h": 20,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 879,
+          "y": 26,
+          "w": 106,
+          "h": 25,
+          "fill_ratio": 0.611
+        },
+        {
+          "x": 879,
+          "y": 330,
+          "w": 106,
+          "h": 14,
+          "fill_ratio": 0.712
+        },
+        {
+          "x": 879,
+          "y": 387,
+          "w": 106,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 986,
+          "y": 34,
+          "w": 18,
+          "h": 8,
+          "fill_ratio": 0.785
+        },
+        {
+          "x": 986,
+          "y": 164,
+          "w": 18,
+          "h": 136,
+          "fill_ratio": 0.578
+        },
+        {
+          "x": 986,
+          "y": 387,
+          "w": 18,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 1005,
+          "y": 110,
+          "w": 14,
+          "h": 21,
+          "fill_ratio": 0.912
+        },
+        {
+          "x": 1026,
+          "y": 27,
+          "w": 30,
+          "h": 21,
+          "fill_ratio": 0.589
+        },
+        {
+          "x": 1026,
+          "y": 387,
+          "w": 30,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 1060,
+          "y": 387,
+          "w": 70,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 1133,
+          "y": 387,
+          "w": 40,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 1251,
+          "y": 277,
+          "w": 7,
+          "h": 16,
+          "fill_ratio": 0.955
+        },
+        {
+          "x": 1265,
+          "y": 0,
+          "w": 10,
+          "h": 62,
+          "fill_ratio": 0.656
+        },
+        {
+          "x": 1265,
+          "y": 281,
+          "w": 10,
+          "h": 14,
+          "fill_ratio": 0.893
+        }
+      ],
+      "axes": [
+        {
+          "y": 224,
+          "weight": 0.399,
+          "source": "corner"
+        },
+        {
+          "y": 256,
+          "weight": 0.323,
+          "source": "corner"
+        },
+        {
+          "y": 278,
+          "weight": 1.5,
+          "source": "corner"
+        },
+        {
+          "y": 293,
+          "weight": 0.75,
+          "source": "hough"
+        },
+        {
+          "y": 388,
+          "weight": 4.5,
+          "source": "hough+morph"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/649556ba-0da2-4835-9f65-a41579465d5a/bar_overlays/chart_0.png"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8941939473152161,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 626,
+      "y1": 746,
+      "x2": 1534,
+      "y2": 1129
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/649556ba-0da2-4835-9f65-a41579465d5a/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 12,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 378,
+      "labels": [
+        {
+          "text": "20",
+          "value": 20.0,
+          "confidence": 0.8165919895358644,
+          "bbox_xyxy": {
+            "x1": 771,
+            "y1": 61,
+            "x2": 793,
+            "y2": 77
+          },
+          "cx": 782.0,
+          "cy": 69.0,
+          "relative_position": {
+            "x1": 0.849119,
+            "y1": 0.159269,
+            "x2": 0.873348,
+            "y2": 0.201044,
+            "cx": 0.861233,
+            "cy": 0.180157
+          },
+          "relative_to_axis": {
+            "along_axis": 0.861233,
+            "from_axis": 0.81746
+          }
+        },
+        {
+          "text": "12",
+          "value": 12.0,
+          "confidence": 0.9999989041821146,
+          "bbox_xyxy": {
+            "x1": 733,
+            "y1": 127,
+            "x2": 755,
+            "y2": 147
+          },
+          "cx": 744.0,
+          "cy": 137.0,
+          "relative_position": {
+            "x1": 0.807269,
+            "y1": 0.331593,
+            "x2": 0.831498,
+            "y2": 0.383812,
+            "cx": 0.819383,
+            "cy": 0.357702
+          },
+          "relative_to_axis": {
+            "along_axis": 0.819383,
+            "from_axis": 0.637566
+          }
+        },
+        {
+          "text": "2000",
+          "value": 2000.0,
+          "confidence": 0.9975625276565552,
+          "bbox_xyxy": {
+            "x1": 121,
+            "y1": 315,
+            "x2": 167,
+            "y2": 335
+          },
+          "cx": 144.0,
+          "cy": 325.0,
+          "relative_position": {
+            "x1": 0.13326,
+            "y1": 0.822454,
+            "x2": 0.183921,
+            "y2": 0.874674,
+            "cx": 0.15859,
+            "cy": 0.848564
+          },
+          "relative_to_axis": {
+            "along_axis": 0.15859,
+            "from_axis": 0.140212
+          }
+        },
+        {
+          "text": "2009",
+          "value": 2009.0,
+          "confidence": 0.9998489618301392,
+          "bbox_xyxy": {
+            "x1": 177,
+            "y1": 315,
+            "x2": 221,
+            "y2": 335
+          },
+          "cx": 199.0,
+          "cy": 325.0,
+          "relative_position": {
+            "x1": 0.194934,
+            "y1": 0.822454,
+            "x2": 0.243392,
+            "y2": 0.874674,
+            "cx": 0.219163,
+            "cy": 0.848564
+          },
+          "relative_to_axis": {
+            "along_axis": 0.219163,
+            "from_axis": 0.140212
+          }
+        },
+        {
+          "text": "2010",
+          "value": 2010.0,
+          "confidence": 0.9999900839594075,
+          "bbox_xyxy": {
+            "x1": 491,
+            "y1": 315,
+            "x2": 537,
+            "y2": 335
+          },
+          "cx": 514.0,
+          "cy": 325.0,
+          "relative_position": {
+            "x1": 0.540749,
+            "y1": 0.822454,
+            "x2": 0.59141,
+            "y2": 0.874674,
+            "cx": 0.566079,
+            "cy": 0.848564
+          },
+          "relative_to_axis": {
+            "along_axis": 0.566079,
+            "from_axis": 0.140212
+          }
+        },
+        {
+          "text": "2019",
+          "value": 2019.0,
+          "confidence": 0.999999463558197,
+          "bbox_xyxy": {
+            "x1": 547,
+            "y1": 315,
+            "x2": 591,
+            "y2": 335
+          },
+          "cx": 569.0,
+          "cy": 325.0,
+          "relative_position": {
+            "x1": 0.602423,
+            "y1": 0.822454,
+            "x2": 0.650881,
+            "y2": 0.874674,
+            "cx": 0.626652,
+            "cy": 0.848564
+          },
+          "relative_to_axis": {
+            "along_axis": 0.626652,
+            "from_axis": 0.140212
+          }
+        },
+        {
+          "text": "2020",
+          "value": 2020.0,
+          "confidence": 0.9999555349349976,
+          "bbox_xyxy": {
+            "x1": 785,
+            "y1": 315,
+            "x2": 831,
+            "y2": 335
+          },
+          "cx": 808.0,
+          "cy": 325.0,
+          "relative_position": {
+            "x1": 0.864537,
+            "y1": 0.822454,
+            "x2": 0.915198,
+            "y2": 0.874674,
+            "cx": 0.889868,
+            "cy": 0.848564
+          },
+          "relative_to_axis": {
+            "along_axis": 0.889868,
+            "from_axis": 0.140212
+          }
+        }
+      ],
+      "label_count": 7,
+      "reason": "Found 7 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "C",
+      "winner_score": 21.293632424339012,
+      "bar_count": 20,
+      "bars": [
+        {
+          "x": 472,
+          "y": 261,
+          "w": 27,
+          "h": 116,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 583,
+          "y": 261,
+          "w": 27,
+          "h": 116,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 657,
+          "y": 239,
+          "w": 28,
+          "h": 138,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 250,
+          "y": 261,
+          "w": 27,
+          "h": 116,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 509,
+          "y": 239,
+          "w": 27,
+          "h": 138,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 694,
+          "y": 206,
+          "w": 27,
+          "h": 171,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 102,
+          "y": 272,
+          "w": 27,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 287,
+          "y": 261,
+          "w": 28,
+          "h": 116,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 805,
+          "y": 206,
+          "w": 28,
+          "h": 171,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 213,
+          "y": 272,
+          "w": 28,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 139,
+          "y": 250,
+          "w": 27,
+          "h": 127,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 324,
+          "y": 272,
+          "w": 28,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 546,
+          "y": 250,
+          "w": 28,
+          "h": 127,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 176,
+          "y": 272,
+          "w": 28,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 398,
+          "y": 272,
+          "w": 27,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 361,
+          "y": 272,
+          "w": 27,
+          "h": 105,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 731,
+          "y": 152,
+          "w": 27,
+          "h": 225,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 620,
+          "y": 195,
+          "w": 27,
+          "h": 182,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 768,
+          "y": 81,
+          "w": 28,
+          "h": 296,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 629,
+          "y": 175,
+          "w": 8,
+          "h": 202,
+          "close_source": "floor+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 130,
+          "y": 271,
+          "w": 9,
+          "h": 18,
+          "fill_ratio": 0.926
+        },
+        {
+          "x": 130,
+          "y": 319,
+          "w": 9,
+          "h": 14,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 148,
+          "y": 229,
+          "w": 7,
+          "h": 21,
+          "fill_ratio": 0.993
+        },
+        {
+          "x": 498,
+          "y": 261,
+          "w": 11,
+          "h": 27,
+          "fill_ratio": 0.916
+        },
+        {
+          "x": 498,
+          "y": 319,
+          "w": 11,
+          "h": 14,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 536,
+          "y": 251,
+          "w": 10,
+          "h": 38,
+          "fill_ratio": 0.958
+        },
+        {
+          "x": 547,
+          "y": 15,
+          "w": 41,
+          "h": 25,
+          "fill_ratio": 0.759
+        },
+        {
+          "x": 547,
+          "y": 319,
+          "w": 41,
+          "h": 14,
+          "fill_ratio": 0.894
+        },
+        {
+          "x": 547,
+          "y": 376,
+          "w": 41,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 592,
+          "y": 18,
+          "w": 7,
+          "h": 15,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 592,
+          "y": 240,
+          "w": 7,
+          "h": 21,
+          "fill_ratio": 0.993
+        },
+        {
+          "x": 609,
+          "y": 17,
+          "w": 11,
+          "h": 17,
+          "fill_ratio": 0.941
+        },
+        {
+          "x": 609,
+          "y": 260,
+          "w": 11,
+          "h": 29,
+          "fill_ratio": 0.906
+        },
+        {
+          "x": 630,
+          "y": 174,
+          "w": 6,
+          "h": 22,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 647,
+          "y": 239,
+          "w": 10,
+          "h": 50,
+          "fill_ratio": 0.968
+        },
+        {
+          "x": 684,
+          "y": 239,
+          "w": 12,
+          "h": 50,
+          "fill_ratio": 0.833
+        },
+        {
+          "x": 739,
+          "y": 21,
+          "w": 14,
+          "h": 13,
+          "fill_ratio": 0.978
+        },
+        {
+          "x": 739,
+          "y": 130,
+          "w": 14,
+          "h": 22,
+          "fill_ratio": 0.961
+        },
+        {
+          "x": 758,
+          "y": 151,
+          "w": 15,
+          "h": 138,
+          "fill_ratio": 0.672
+        },
+        {
+          "x": 758,
+          "y": 376,
+          "w": 15,
+          "h": 7,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 789,
+          "y": 13,
+          "w": 34,
+          "h": 27,
+          "fill_ratio": 0.597
+        },
+        {
+          "x": 789,
+          "y": 319,
+          "w": 34,
+          "h": 14,
+          "fill_ratio": 0.998
+        },
+        {
+          "x": 789,
+          "y": 376,
+          "w": 34,
+          "h": 7,
+          "fill_ratio": 1.0
+        }
+      ],
+      "axes": [
+        {
+          "y": 269,
+          "weight": 1.5,
+          "source": "corner"
+        },
+        {
+          "y": 282,
+          "weight": 0.75,
+          "source": "hough"
+        },
+        {
+          "y": 349,
+          "weight": 1.355,
+          "source": "hough+morph"
+        },
+        {
+          "y": 377,
+          "weight": 4.5,
+          "source": "hough+morph"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/649556ba-0da2-4835-9f65-a41579465d5a/bar_overlays/chart_1.png"
+    }
+  }
+]

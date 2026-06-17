@@ -1,0 +1,61 @@
+{
+  "image_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/upload.jpg",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 724,
+    "height": 454
+  },
+  "num_raw_predictions": 8,
+  "num_analyzed_charts": 8,
+  "results_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/results.json",
+  "labeled_output": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/labeled_output.png",
+  "label_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/label_overlays",
+  "bar_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/bar_overlays",
+  "bar_detection_counts": [
+    {
+      "chart_id": 0,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 1,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 2,
+      "status": "ok",
+      "bar_count": 2
+    },
+    {
+      "chart_id": 3,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 4,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 5,
+      "status": "ok",
+      "bar_count": 4
+    },
+    {
+      "chart_id": 6,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 7,
+      "status": "ok",
+      "bar_count": 3
+    }
+  ],
+  "raw_result_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/70271afb-c354-4544-aa87-315101523f25/roboflow_raw_result.json",
+  "tesseract_available": false
+}

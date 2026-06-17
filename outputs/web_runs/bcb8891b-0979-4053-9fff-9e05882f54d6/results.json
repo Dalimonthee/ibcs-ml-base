@@ -1,0 +1,761 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9588220119476318,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 0,
+      "y1": 14,
+      "x2": 542,
+      "y2": 507
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/bcb8891b-0979-4053-9fff-9e05882f54d6/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [
+        0.0,
+        15.0,
+        30.0,
+        45.0
+      ],
+      "ocr_numbers_count": 21,
+      "zero_source": "axis_area_rescue",
+      "reason": "Zero found by the orientation-specific axis-area rescue pass"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 416,
+      "labels": [
+        {
+          "text": "Owner-occupier variable-rate borrowers,",
+          "value": 0.0,
+          "confidence": 0.6706002358044155,
+          "bbox_xyxy": {
+            "x1": 126,
+            "y1": 26,
+            "x2": 436,
+            "y2": 50
+          },
+          "cx": 281.0,
+          "cy": 38.0,
+          "relative_position": {
+            "x1": 0.232472,
+            "y1": 0.052738,
+            "x2": 0.804428,
+            "y2": 0.10142,
+            "cx": 0.51845,
+            "cy": 0.077079
+          },
+          "relative_to_axis": {
+            "along_axis": 0.51845,
+            "from_axis": 0.908654
+          }
+        },
+        {
+          "text": "percentage change from April 2022 to July 2023",
+          "value": 0.0,
+          "confidence": 0.7872767043309893,
+          "bbox_xyxy": {
+            "x1": 98,
+            "y1": 46,
+            "x2": 468,
+            "y2": 71
+          },
+          "cx": 283.0,
+          "cy": 58.5,
+          "relative_position": {
+            "x1": 0.180812,
+            "y1": 0.093306,
+            "x2": 0.863469,
+            "y2": 0.144016,
+            "cx": 0.52214,
+            "cy": 0.118661
+          },
+          "relative_to_axis": {
+            "along_axis": 0.52214,
+            "from_axis": 0.859375
+          }
+        },
+        {
+          "text": "AIlI loans",
+          "value": 0.0,
+          "confidence": 0.1798983161616053,
+          "bbox_xyxy": {
+            "x1": 79,
+            "y1": 87,
+            "x2": 141,
+            "y2": 103
+          },
+          "cx": 110.0,
+          "cy": 95.0,
+          "relative_position": {
+            "x1": 0.145756,
+            "y1": 0.176471,
+            "x2": 0.260148,
+            "y2": 0.208925,
+            "cx": 0.202952,
+            "cy": 0.192698
+          },
+          "relative_to_axis": {
+            "along_axis": 0.202952,
+            "from_axis": 0.771635
+          }
+        },
+        {
+          "text": "LTI > 4*",
+          "value": 4.0,
+          "confidence": 0.7660498786359414,
+          "bbox_xyxy": {
+            "x1": 77,
+            "y1": 105,
+            "x2": 137,
+            "y2": 125
+          },
+          "cx": 107.0,
+          "cy": 115.0,
+          "relative_position": {
+            "x1": 0.142066,
+            "y1": 0.212982,
+            "x2": 0.252768,
+            "y2": 0.25355,
+            "cx": 0.197417,
+            "cy": 0.233266
+          },
+          "relative_to_axis": {
+            "along_axis": 0.197417,
+            "from_axis": 0.723558
+          }
+        },
+        {
+          "text": "LVR > 80**",
+          "value": 80.0,
+          "confidence": 0.9615246334848279,
+          "bbox_xyxy": {
+            "x1": 79,
+            "y1": 129,
+            "x2": 159,
+            "y2": 145
+          },
+          "cx": 119.0,
+          "cy": 137.0,
+          "relative_position": {
+            "x1": 0.145756,
+            "y1": 0.261663,
+            "x2": 0.293358,
+            "y2": 0.294118,
+            "cx": 0.219557,
+            "cy": 0.27789
+          },
+          "relative_to_axis": {
+            "along_axis": 0.219557,
+            "from_axis": 0.670673
+          }
+        },
+        {
+          "text": "45",
+          "value": 45.0,
+          "confidence": 0.9999995785315409,
+          "bbox_xyxy": {
+            "x1": 25,
+            "y1": 147,
+            "x2": 49,
+            "y2": 167
+          },
+          "cx": 37.0,
+          "cy": 157.0,
+          "relative_position": {
+            "x1": 0.046125,
+            "y1": 0.298174,
+            "x2": 0.090406,
+            "y2": 0.338742,
+            "cx": 0.068266,
+            "cy": 0.318458
+          },
+          "relative_to_axis": {
+            "along_axis": 0.068266,
+            "from_axis": 0.622596
+          }
+        },
+        {
+          "text": "45",
+          "value": 45.0,
+          "confidence": 0.48966241020273404,
+          "bbox_xyxy": {
+            "x1": 517,
+            "y1": 147,
+            "x2": 539,
+            "y2": 167
+          },
+          "cx": 528.0,
+          "cy": 157.0,
+          "relative_position": {
+            "x1": 0.953875,
+            "y1": 0.298174,
+            "x2": 0.994465,
+            "y2": 0.338742,
+            "cx": 0.97417,
+            "cy": 0.318458
+          },
+          "relative_to_axis": {
+            "along_axis": 0.97417,
+            "from_axis": 0.622596
+          }
+        },
+        {
+          "text": "15",
+          "value": 15.0,
+          "confidence": 0.9999974711900259,
+          "bbox_xyxy": {
+            "x1": 27,
+            "y1": 321,
+            "x2": 49,
+            "y2": 339
+          },
+          "cx": 38.0,
+          "cy": 330.0,
+          "relative_position": {
+            "x1": 0.049815,
+            "y1": 0.651116,
+            "x2": 0.090406,
+            "y2": 0.687627,
+            "cx": 0.070111,
+            "cy": 0.669371
+          },
+          "relative_to_axis": {
+            "along_axis": 0.070111,
+            "from_axis": 0.206731
+          }
+        }
+      ],
+      "label_count": 8,
+      "reason": "Found 8 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "B",
+      "winner_score": 8.899152196022971,
+      "bar_count": 60,
+      "bars": [
+        {
+          "x": 310,
+          "y": 204,
+          "w": 22,
+          "h": 269,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 63,
+          "y": 108,
+          "w": 13,
+          "h": 365,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 465,
+          "y": 381,
+          "w": 15,
+          "h": 92,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 388,
+          "y": 207,
+          "w": 14,
+          "h": 266,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 78,
+          "y": 5,
+          "w": 8,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 167,
+          "y": 4,
+          "w": 34,
+          "h": 68,
+          "close_source": "axis"
+        },
+        {
+          "x": 324,
+          "y": 5,
+          "w": 9,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 473,
+          "y": 5,
+          "w": 9,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 155,
+          "y": 399,
+          "w": 21,
+          "h": 74,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 119,
+          "y": 5,
+          "w": 10,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 233,
+          "y": 318,
+          "w": 21,
+          "h": 155,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 427,
+          "y": 5,
+          "w": 8,
+          "h": 37,
+          "close_source": "floor"
+        },
+        {
+          "x": 99,
+          "y": 55,
+          "w": 17,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 510,
+          "y": 5,
+          "w": 8,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 280,
+          "y": 3,
+          "w": 41,
+          "h": 37,
+          "close_source": "floor"
+        },
+        {
+          "x": 292,
+          "y": 52,
+          "w": 7,
+          "h": 20,
+          "close_source": "axis"
+        },
+        {
+          "x": 252,
+          "y": 5,
+          "w": 18,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 452,
+          "y": 5,
+          "w": 17,
+          "h": 49,
+          "close_source": "floor"
+        },
+        {
+          "x": 302,
+          "y": 424,
+          "w": 37,
+          "h": 49,
+          "close_source": "axis"
+        },
+        {
+          "x": 139,
+          "y": 5,
+          "w": 18,
+          "h": 36,
+          "close_source": "floor"
+        },
+        {
+          "x": 245,
+          "y": 5,
+          "w": 82,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 74,
+          "y": 425,
+          "w": 110,
+          "h": 48,
+          "close_source": "axis"
+        },
+        {
+          "x": 307,
+          "y": 445,
+          "w": 28,
+          "h": 28,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 439,
+          "y": 7,
+          "w": 8,
+          "h": 65,
+          "close_source": "axis"
+        },
+        {
+          "x": 229,
+          "y": 445,
+          "w": 18,
+          "h": 28,
+          "close_source": "axis"
+        },
+        {
+          "x": 374,
+          "y": 5,
+          "w": 9,
+          "h": 8,
+          "close_source": "floor"
+        },
+        {
+          "x": 151,
+          "y": 445,
+          "w": 28,
+          "h": 28,
+          "close_source": "axis"
+        },
+        {
+          "x": 384,
+          "y": 445,
+          "w": 28,
+          "h": 28,
+          "close_source": "axis"
+        },
+        {
+          "x": 237,
+          "y": 55,
+          "w": 8,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 327,
+          "y": 35,
+          "w": 22,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 108,
+          "y": 5,
+          "w": 8,
+          "h": 53,
+          "close_source": "floor"
+        },
+        {
+          "x": 487,
+          "y": 5,
+          "w": 7,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 90,
+          "y": 5,
+          "w": 10,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 163,
+          "y": 35,
+          "w": 8,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 208,
+          "y": 55,
+          "w": 8,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 408,
+          "y": 3,
+          "w": 68,
+          "h": 69,
+          "close_source": "axis"
+        },
+        {
+          "x": 100,
+          "y": 131,
+          "w": 8,
+          "h": 342,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 132,
+          "y": 55,
+          "w": 8,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 356,
+          "y": 35,
+          "w": 27,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 283,
+          "y": 35,
+          "w": 31,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 108,
+          "y": 55,
+          "w": 56,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 172,
+          "y": 55,
+          "w": 11,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 327,
+          "y": 425,
+          "w": 90,
+          "h": 48,
+          "close_source": "axis"
+        },
+        {
+          "x": 220,
+          "y": 5,
+          "w": 13,
+          "h": 60,
+          "close_source": "floor"
+        },
+        {
+          "x": 518,
+          "y": 152,
+          "w": 18,
+          "h": 321,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 231,
+          "y": 35,
+          "w": 15,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 410,
+          "y": 123,
+          "w": 22,
+          "h": 350,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 81,
+          "y": 90,
+          "w": 43,
+          "h": 383,
+          "close_source": "axis+align"
+        },
+        {
+          "x": 408,
+          "y": 35,
+          "w": 8,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 165,
+          "y": 443,
+          "w": 92,
+          "h": 30,
+          "close_source": "axis"
+        },
+        {
+          "x": 264,
+          "y": 35,
+          "w": 7,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 373,
+          "y": 55,
+          "w": 13,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 252,
+          "y": 53,
+          "w": 32,
+          "h": 19,
+          "close_source": "axis"
+        },
+        {
+          "x": 227,
+          "y": 55,
+          "w": 8,
+          "h": 10,
+          "close_source": "floor"
+        },
+        {
+          "x": 249,
+          "y": 425,
+          "w": 13,
+          "h": 48,
+          "close_source": "axis"
+        },
+        {
+          "x": 37,
+          "y": 408,
+          "w": 162,
+          "h": 65,
+          "close_source": "axis"
+        },
+        {
+          "x": 396,
+          "y": 35,
+          "w": 35,
+          "h": 37,
+          "close_source": "axis"
+        },
+        {
+          "x": 156,
+          "y": 55,
+          "w": 154,
+          "h": 17,
+          "close_source": "axis"
+        },
+        {
+          "x": 39,
+          "y": 5,
+          "w": 33,
+          "h": 67,
+          "close_source": "axis"
+        },
+        {
+          "x": 105,
+          "y": 92,
+          "w": 33,
+          "h": 381,
+          "close_source": "axis+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 55,
+          "y": 365,
+          "w": 21,
+          "h": 50,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 133,
+          "y": 330,
+          "w": 22,
+          "h": 85,
+          "fill_ratio": 0.963
+        },
+        {
+          "x": 210,
+          "y": 266,
+          "w": 23,
+          "h": 149,
+          "fill_ratio": 0.97
+        },
+        {
+          "x": 254,
+          "y": 369,
+          "w": 22,
+          "h": 46,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 288,
+          "y": 244,
+          "w": 22,
+          "h": 171,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 331,
+          "y": 258,
+          "w": 23,
+          "h": 157,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 366,
+          "y": 317,
+          "w": 22,
+          "h": 98,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 409,
+          "y": 123,
+          "w": 23,
+          "h": 292,
+          "fill_ratio": 0.987
+        },
+        {
+          "x": 487,
+          "y": 350,
+          "w": 22,
+          "h": 65,
+          "fill_ratio": 0.978
+        }
+      ],
+      "axes": [
+        {
+          "y": 72,
+          "weight": 3.218,
+          "source": "hough+morph"
+        },
+        {
+          "y": 158,
+          "weight": 3.051,
+          "source": "hough+morph"
+        },
+        {
+          "y": 243,
+          "weight": 2.269,
+          "source": "hough+morph"
+        },
+        {
+          "y": 416,
+          "weight": 1.615,
+          "source": "hough+morph"
+        },
+        {
+          "y": 473,
+          "weight": 1.714,
+          "source": "corner+hough"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/bcb8891b-0979-4053-9fff-9e05882f54d6/bar_overlays/chart_0.png"
+    }
+  }
+]

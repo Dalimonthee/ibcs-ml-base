@@ -1,0 +1,615 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9474193453788757,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 255,
+      "y1": 124,
+      "x2": 537,
+      "y2": 371
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/bce4960d-0ab8-4043-b7c6-c7302918068e/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 6,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 206,
+      "labels": [
+        {
+          "text": "Coumh RIS",
+          "value": 0.0,
+          "confidence": 0.10837153520593792,
+          "bbox_xyxy": {
+            "x1": 136,
+            "y1": 0,
+            "x2": 184,
+            "y2": 8
+          },
+          "cx": 160.0,
+          "cy": 4.0,
+          "relative_position": {
+            "x1": 0.48227,
+            "y1": 0.0,
+            "x2": 0.652482,
+            "y2": 0.032389,
+            "cx": 0.567376,
+            "cy": 0.016194
+          },
+          "relative_to_axis": {
+            "along_axis": 0.567376,
+            "from_axis": 0.980583
+          }
+        },
+        {
+          "text": "36A",
+          "value": 36.0,
+          "confidence": 0.1617467375282737,
+          "bbox_xyxy": {
+            "x1": 244,
+            "y1": 12,
+            "x2": 270,
+            "y2": 20
+          },
+          "cx": 257.0,
+          "cy": 16.0,
+          "relative_position": {
+            "x1": 0.865248,
+            "y1": 0.048583,
+            "x2": 0.957447,
+            "y2": 0.080972,
+            "cx": 0.911348,
+            "cy": 0.064777
+          },
+          "relative_to_axis": {
+            "along_axis": 0.911348,
+            "from_axis": 0.92233
+          }
+        },
+        {
+          "text": "~{CCoR",
+          "value": 0.0,
+          "confidence": 0.11105582201446028,
+          "bbox_xyxy": {
+            "x1": 245,
+            "y1": 199,
+            "x2": 275,
+            "y2": 211
+          },
+          "cx": 260.0,
+          "cy": 205.0,
+          "relative_position": {
+            "x1": 0.868794,
+            "y1": 0.805668,
+            "x2": 0.975177,
+            "y2": 0.854251,
+            "cx": 0.921986,
+            "cy": 0.82996
+          },
+          "relative_to_axis": {
+            "along_axis": 0.921986,
+            "from_axis": 0.004854
+          }
+        }
+      ],
+      "label_count": 3,
+      "reason": "Found 3 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "B",
+      "winner_score": 13.824087385682311,
+      "bar_count": 14,
+      "bars": [
+        {
+          "x": 140,
+          "y": 112,
+          "w": 8,
+          "h": 94,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 54,
+          "y": 127,
+          "w": 8,
+          "h": 79,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 183,
+          "y": 39,
+          "w": 8,
+          "h": 167,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 226,
+          "y": 39,
+          "w": 8,
+          "h": 167,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 40,
+          "y": 133,
+          "w": 7,
+          "h": 73,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 112,
+          "y": 91,
+          "w": 8,
+          "h": 115,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 83,
+          "y": 102,
+          "w": 8,
+          "h": 104,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 69,
+          "y": 129,
+          "w": 7,
+          "h": 77,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 155,
+          "y": 71,
+          "w": 8,
+          "h": 135,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 198,
+          "y": 60,
+          "w": 8,
+          "h": 146,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 97,
+          "y": 123,
+          "w": 8,
+          "h": 83,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 126,
+          "y": 123,
+          "w": 7,
+          "h": 83,
+          "close_source": "floor"
+        },
+        {
+          "x": 212,
+          "y": 81,
+          "w": 7,
+          "h": 125,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 169,
+          "y": 102,
+          "w": 7,
+          "h": 104,
+          "close_source": "floor+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 40,
+          "y": 133,
+          "w": 7,
+          "h": 73,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 54,
+          "y": 127,
+          "w": 8,
+          "h": 79,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 69,
+          "y": 129,
+          "w": 8,
+          "h": 77,
+          "fill_ratio": 0.992
+        },
+        {
+          "x": 83,
+          "y": 102,
+          "w": 8,
+          "h": 104,
+          "fill_ratio": 0.993
+        },
+        {
+          "x": 97,
+          "y": 123,
+          "w": 8,
+          "h": 83,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 112,
+          "y": 91,
+          "w": 7,
+          "h": 115,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 126,
+          "y": 123,
+          "w": 7,
+          "h": 84,
+          "fill_ratio": 0.993
+        },
+        {
+          "x": 140,
+          "y": 112,
+          "w": 8,
+          "h": 94,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 155,
+          "y": 70,
+          "w": 8,
+          "h": 136,
+          "fill_ratio": 0.885
+        },
+        {
+          "x": 170,
+          "y": 102,
+          "w": 7,
+          "h": 104,
+          "fill_ratio": 0.995
+        },
+        {
+          "x": 183,
+          "y": 39,
+          "w": 8,
+          "h": 167,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 198,
+          "y": 60,
+          "w": 8,
+          "h": 146,
+          "fill_ratio": 0.973
+        },
+        {
+          "x": 212,
+          "y": 81,
+          "w": 8,
+          "h": 125,
+          "fill_ratio": 0.994
+        },
+        {
+          "x": 226,
+          "y": 39,
+          "w": 8,
+          "h": 167,
+          "fill_ratio": 1.0
+        }
+      ],
+      "axes": [
+        {
+          "y": 18,
+          "weight": 4.5,
+          "source": "hough+morph"
+        },
+        {
+          "y": 60,
+          "weight": 0.469,
+          "source": "corner"
+        },
+        {
+          "y": 101,
+          "weight": 0.844,
+          "source": "corner"
+        },
+        {
+          "y": 127,
+          "weight": 1.5,
+          "source": "corner"
+        },
+        {
+          "y": 206,
+          "weight": 0.75,
+          "source": "hough"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/bce4960d-0ab8-4043-b7c6-c7302918068e/bar_overlays/chart_0.png"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.9447636008262634,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 0,
+      "y1": 139,
+      "x2": 287,
+      "y2": 372
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/bce4960d-0ab8-4043-b7c6-c7302918068e/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 7,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "vertical",
+      "axis_position": 190,
+      "labels": [
+        {
+          "text": "249",
+          "value": 249.0,
+          "confidence": 0.43035583620322054,
+          "bbox_xyxy": {
+            "x1": 245,
+            "y1": 61,
+            "x2": 267,
+            "y2": 73
+          },
+          "cx": 256.0,
+          "cy": 67.0,
+          "relative_position": {
+            "x1": 0.853659,
+            "y1": 0.261803,
+            "x2": 0.930314,
+            "y2": 0.313305,
+            "cx": 0.891986,
+            "cy": 0.287554
+          },
+          "relative_to_axis": {
+            "along_axis": 0.891986,
+            "from_axis": 0.647368
+          }
+        }
+      ],
+      "label_count": 1,
+      "reason": "Found 1 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "B",
+      "winner_score": 11.915059933201999,
+      "bar_count": 13,
+      "bars": [
+        {
+          "x": 152,
+          "y": 82,
+          "w": 8,
+          "h": 108,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 228,
+          "y": 36,
+          "w": 8,
+          "h": 154,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 91,
+          "y": 160,
+          "w": 8,
+          "h": 30,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 46,
+          "y": 166,
+          "w": 8,
+          "h": 24,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 107,
+          "y": 113,
+          "w": 8,
+          "h": 77,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 198,
+          "y": 97,
+          "w": 8,
+          "h": 93,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 137,
+          "y": 175,
+          "w": 8,
+          "h": 15,
+          "close_source": "floor"
+        },
+        {
+          "x": 61,
+          "y": 175,
+          "w": 8,
+          "h": 15,
+          "close_source": "floor"
+        },
+        {
+          "x": 183,
+          "y": 97,
+          "w": 8,
+          "h": 93,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 31,
+          "y": 175,
+          "w": 8,
+          "h": 15,
+          "close_source": "floor"
+        },
+        {
+          "x": 122,
+          "y": 107,
+          "w": 8,
+          "h": 83,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 168,
+          "y": 91,
+          "w": 7,
+          "h": 99,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 213,
+          "y": 132,
+          "w": 8,
+          "h": 58,
+          "close_source": "floor+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 31,
+          "y": 175,
+          "w": 7,
+          "h": 16,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 46,
+          "y": 166,
+          "w": 8,
+          "h": 25,
+          "fill_ratio": 0.995
+        },
+        {
+          "x": 91,
+          "y": 160,
+          "w": 9,
+          "h": 31,
+          "fill_ratio": 0.978
+        },
+        {
+          "x": 107,
+          "y": 113,
+          "w": 8,
+          "h": 78,
+          "fill_ratio": 0.998
+        },
+        {
+          "x": 122,
+          "y": 107,
+          "w": 8,
+          "h": 84,
+          "fill_ratio": 0.999
+        },
+        {
+          "x": 137,
+          "y": 175,
+          "w": 8,
+          "h": 16,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 152,
+          "y": 82,
+          "w": 9,
+          "h": 109,
+          "fill_ratio": 0.996
+        },
+        {
+          "x": 167,
+          "y": 91,
+          "w": 9,
+          "h": 100,
+          "fill_ratio": 0.992
+        },
+        {
+          "x": 183,
+          "y": 97,
+          "w": 8,
+          "h": 94,
+          "fill_ratio": 0.997
+        },
+        {
+          "x": 198,
+          "y": 97,
+          "w": 8,
+          "h": 94,
+          "fill_ratio": 0.997
+        },
+        {
+          "x": 213,
+          "y": 130,
+          "w": 9,
+          "h": 61,
+          "fill_ratio": 0.965
+        },
+        {
+          "x": 228,
+          "y": 35,
+          "w": 9,
+          "h": 156,
+          "fill_ratio": 0.996
+        }
+      ],
+      "axes": [
+        {
+          "y": 66,
+          "weight": 3.762,
+          "source": "hough+morph"
+        },
+        {
+          "y": 116,
+          "weight": 0.75,
+          "source": "corner"
+        },
+        {
+          "y": 157,
+          "weight": 0.75,
+          "source": "corner"
+        },
+        {
+          "y": 175,
+          "weight": 1.5,
+          "source": "corner"
+        },
+        {
+          "y": 190,
+          "weight": 1.5,
+          "source": "hough"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/bce4960d-0ab8-4043-b7c6-c7302918068e/bar_overlays/chart_1.png"
+    }
+  }
+]

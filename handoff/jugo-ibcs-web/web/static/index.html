@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jugo — IBCS Analysis</title>
+  <link rel="icon" href="/static/assets/favicon-32x32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="/static/assets/jugo.svg" alt="Jugo data experts" class="logo">
+    </a>
+    <nav class="nav">
+      <a href="#upload" class="nav-link nav-link--active">Analyze</a>
+      <button type="button" class="nav-link nav-link--disabled" title="Coming soon" disabled>My Reports</button>
+      <button type="button" class="nav-link nav-link--button" id="how-it-works-btn">How it Works</button>
+      <button type="button" class="btn-login nav-link--disabled" title="Coming soon" disabled>Login</button>
+    </nav>
+  </header>
+
+  <main class="main" id="upload">
+    <section class="upload-section">
+      <h1 class="page-title">Upload Your Dashboard for IBCS Analysis</h1>
+
+      <div class="llm-options" id="llm-options">
+        <label class="toggle-row">
+          <input type="checkbox" id="use-llm-toggle" class="toggle-input">
+          <span class="toggle-switch" aria-hidden="true"></span>
+          <span class="toggle-label">
+            <strong>Run live LLM compliance analysis</strong>
+            <span class="toggle-hint">Uses your own OpenAI API key to generate rule checks and explanations for any image.</span>
+          </span>
+        </label>
+        <div class="llm-key-panel hidden" id="llm-key-panel">
+          <label class="llm-key-label" for="openai-api-key">OpenAI API key</label>
+          <input
+            type="password"
+            id="openai-api-key"
+            class="llm-key-input"
+            placeholder="sk-..."
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <p class="llm-key-note">Your key is sent only with this analysis request and is not stored on the server.</p>
+        </div>
+      </div>
+
+      <div class="dropzone dropzone--compact" id="dropzone">
+        <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="dropzone-content" id="dropzone-empty">
+          <div class="upload-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 16V4M12 4L8 8M12 4L16 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 16V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="dropzone-text">
+            Drag &amp; drop your dashboard image here or
+            <button type="button" class="link-button" id="browse-btn">Browse Files</button>
+          </p>
+        </div>
+        <div class="dropzone-preview hidden" id="dropzone-preview">
+          <img id="preview-image" alt="Selected dashboard preview">
+          <p class="preview-filename" id="preview-filename"></p>
+          <div class="preview-actions">
+            <button type="button" class="btn-primary" id="analyze-btn">Analyze Dashboard</button>
+            <button type="button" class="btn-secondary" id="clear-btn">Choose another file</button>
+          </div>
+        </div>
+        <div class="dropzone-loading hidden" id="dropzone-loading">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="loading-text" id="loading-text">Running IBCS analysis…</p>
+          <p class="loading-hint">This may take up to a minute on the first run.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section" aria-labelledby="results-heading">
+      <h2 class="results-heading" id="results-heading">Analysis Results</h2>
+      <div class="results-card" id="results-card">
+        <div class="results-empty" id="results-empty">
+          <div class="empty-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="28" width="6" height="12" rx="1" fill="currentColor" opacity="0.3"/>
+              <rect x="18" y="20" width="6" height="20" rx="1" fill="currentColor" opacity="0.4"/>
+              <rect x="28" y="12" width="6" height="28" rx="1" fill="currentColor" opacity="0.5"/>
+              <rect x="38" y="24" width="6" height="16" rx="1" fill="currentColor" opacity="0.35"/>
+            </svg>
+          </div>
+          <p>Upload a dashboard to see IBCS analysis results here.</p>
+        </div>
+        <div class="results-content hidden" id="results-content"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast hidden" id="toast" role="alert"></div>
+
+  <div class="modal-overlay hidden" id="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal-title">How it Works</h2>
+      <p class="modal-intro">
+        Upload a dashboard image for IBCS analysis. ML models add visual overlays for chart detection, OCR labels, and bar geometry.
+        Optionally enable live LLM analysis with your own OpenAI API key for full rule checks on any file.
+      </p>
+      <ol class="modal-steps">
+        <li>
+          <strong>Compliance report (optional)</strong>
+          <span>Turn on <em>Run live LLM compliance analysis</em> and enter your OpenAI API key to generate rule checks, violations, and explanations for any upload. Without LLM, pre-generated reports from <code>ibcs_compliance_report_openai.json</code> are matched by filename.</span>
+        </li>
+        <li>
+          <strong>Chart detection</strong>
+          <span>Roboflow draws bounding boxes around horizontal and vertical bar charts on your dashboard.</span>
+        </li>
+        <li>
+          <strong>Labels &amp; bars</strong>
+          <span>OCR and bar detection produce overlay images so you can inspect detected labels and bar regions visually.</span>
+        </li>
+      </ol>
+      <p class="modal-note">
+        ML overlays are always generated live. Compliance scoring comes from the LLM (if enabled) or a matching bundled report.
+      </p>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

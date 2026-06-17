@@ -1,0 +1,699 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.9143988490104675,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 1702,
+      "y1": 336,
+      "x2": 2053,
+      "y2": 718
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/36f3b344-8c67-4e41-87eb-f0f18ffccb8e/crops/chart_0_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 11,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "horizontal",
+      "axis_position": 171,
+      "labels": [
+        {
+          "text": "225",
+          "value": 225.0,
+          "confidence": 0.9999997246979434,
+          "bbox_xyxy": {
+            "x1": 287,
+            "y1": 63,
+            "x2": 317,
+            "y2": 81
+          },
+          "cx": 302.0,
+          "cy": 72.0,
+          "relative_position": {
+            "x1": 0.817664,
+            "y1": 0.164921,
+            "x2": 0.903134,
+            "y2": 0.212042,
+            "cx": 0.860399,
+            "cy": 0.188482
+          },
+          "relative_to_axis": {
+            "along_axis": 0.188482,
+            "from_axis": 0.727778
+          }
+        },
+        {
+          "text": "141",
+          "value": 141.0,
+          "confidence": 0.8349299430847168,
+          "bbox_xyxy": {
+            "x1": 247,
+            "y1": 109,
+            "x2": 273,
+            "y2": 125
+          },
+          "cx": 260.0,
+          "cy": 117.0,
+          "relative_position": {
+            "x1": 0.703704,
+            "y1": 0.28534,
+            "x2": 0.777778,
+            "y2": 0.327225,
+            "cx": 0.740741,
+            "cy": 0.306283
+          },
+          "relative_to_axis": {
+            "along_axis": 0.306283,
+            "from_axis": 0.494444
+          }
+        },
+        {
+          "text": "130",
+          "value": 130.0,
+          "confidence": 0.9999941498334826,
+          "bbox_xyxy": {
+            "x1": 241,
+            "y1": 149,
+            "x2": 269,
+            "y2": 167
+          },
+          "cx": 255.0,
+          "cy": 158.0,
+          "relative_position": {
+            "x1": 0.68661,
+            "y1": 0.390052,
+            "x2": 0.766382,
+            "y2": 0.437173,
+            "cx": 0.726496,
+            "cy": 0.413613
+          },
+          "relative_to_axis": {
+            "along_axis": 0.413613,
+            "from_axis": 0.466667
+          }
+        },
+        {
+          "text": "114",
+          "value": 114.0,
+          "confidence": 0.9999916032918427,
+          "bbox_xyxy": {
+            "x1": 233,
+            "y1": 193,
+            "x2": 261,
+            "y2": 211
+          },
+          "cx": 247.0,
+          "cy": 202.0,
+          "relative_position": {
+            "x1": 0.663818,
+            "y1": 0.505236,
+            "x2": 0.74359,
+            "y2": 0.552356,
+            "cx": 0.703704,
+            "cy": 0.528796
+          },
+          "relative_to_axis": {
+            "along_axis": 0.528796,
+            "from_axis": 0.422222
+          }
+        },
+        {
+          "text": "111",
+          "value": 111.0,
+          "confidence": 0.9998745321399802,
+          "bbox_xyxy": {
+            "x1": 233,
+            "y1": 237,
+            "x2": 257,
+            "y2": 253
+          },
+          "cx": 245.0,
+          "cy": 245.0,
+          "relative_position": {
+            "x1": 0.663818,
+            "y1": 0.620419,
+            "x2": 0.732194,
+            "y2": 0.662304,
+            "cx": 0.698006,
+            "cy": 0.641361
+          },
+          "relative_to_axis": {
+            "along_axis": 0.641361,
+            "from_axis": 0.411111
+          }
+        },
+        {
+          "text": "105",
+          "value": 105.0,
+          "confidence": 0.9999944939607979,
+          "bbox_xyxy": {
+            "x1": 227,
+            "y1": 277,
+            "x2": 255,
+            "y2": 297
+          },
+          "cx": 241.0,
+          "cy": 287.0,
+          "relative_position": {
+            "x1": 0.646724,
+            "y1": 0.725131,
+            "x2": 0.726496,
+            "y2": 0.777487,
+            "cx": 0.68661,
+            "cy": 0.751309
+          },
+          "relative_to_axis": {
+            "along_axis": 0.751309,
+            "from_axis": 0.388889
+          }
+        }
+      ],
+      "label_count": 6,
+      "reason": "Found 6 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.900276780128479,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 988,
+      "y1": 370,
+      "x2": 1327,
+      "y2": 718
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/36f3b344-8c67-4e41-87eb-f0f18ffccb8e/crops/chart_1_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 15,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "horizontal",
+      "axis_position": 92,
+      "labels": [
+        {
+          "text": "264",
+          "value": 264.0,
+          "confidence": 0.999999449395897,
+          "bbox_xyxy": {
+            "x1": 275,
+            "y1": 65,
+            "x2": 301,
+            "y2": 81
+          },
+          "cx": 288.0,
+          "cy": 73.0,
+          "relative_position": {
+            "x1": 0.811209,
+            "y1": 0.186782,
+            "x2": 0.887906,
+            "y2": 0.232759,
+            "cx": 0.849558,
+            "cy": 0.20977
+          },
+          "relative_to_axis": {
+            "along_axis": 0.20977,
+            "from_axis": 0.793522
+          }
+        },
+        {
+          "text": "237",
+          "value": 237.0,
+          "confidence": 0.9999995870469189,
+          "bbox_xyxy": {
+            "x1": 255,
+            "y1": 101,
+            "x2": 283,
+            "y2": 119
+          },
+          "cx": 269.0,
+          "cy": 110.0,
+          "relative_position": {
+            "x1": 0.752212,
+            "y1": 0.29023,
+            "x2": 0.834808,
+            "y2": 0.341954,
+            "cx": 0.79351,
+            "cy": 0.316092
+          },
+          "relative_to_axis": {
+            "along_axis": 0.316092,
+            "from_axis": 0.716599
+          }
+        },
+        {
+          "text": "158",
+          "value": 158.0,
+          "confidence": 0.9999981417113152,
+          "bbox_xyxy": {
+            "x1": 203,
+            "y1": 141,
+            "x2": 231,
+            "y2": 157
+          },
+          "cx": 217.0,
+          "cy": 149.0,
+          "relative_position": {
+            "x1": 0.59882,
+            "y1": 0.405172,
+            "x2": 0.681416,
+            "y2": 0.451149,
+            "cx": 0.640118,
+            "cy": 0.428161
+          },
+          "relative_to_axis": {
+            "along_axis": 0.428161,
+            "from_axis": 0.506073
+          }
+        }
+      ],
+      "label_count": 3,
+      "reason": "Found 3 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.8789780735969543,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 1350,
+      "y1": 330,
+      "x2": 1681,
+      "y2": 719
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/36f3b344-8c67-4e41-87eb-f0f18ffccb8e/crops/chart_2_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 11,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "horizontal",
+      "axis_position": 99,
+      "labels": [
+        {
+          "text": "Zoom-out",
+          "value": 0.0,
+          "confidence": 0.9001982299604155,
+          "bbox_xyxy": {
+            "x1": 123,
+            "y1": 29,
+            "x2": 189,
+            "y2": 45
+          },
+          "cx": 156.0,
+          "cy": 37.0,
+          "relative_position": {
+            "x1": 0.371601,
+            "y1": 0.07455,
+            "x2": 0.570997,
+            "y2": 0.115681,
+            "cx": 0.471299,
+            "cy": 0.095116
+          },
+          "relative_to_axis": {
+            "along_axis": 0.095116,
+            "from_axis": 0.24569
+          }
+        },
+        {
+          "text": "476",
+          "value": 476.0,
+          "confidence": 0.999999449395897,
+          "bbox_xyxy": {
+            "x1": 271,
+            "y1": 73,
+            "x2": 299,
+            "y2": 91
+          },
+          "cx": 285.0,
+          "cy": 82.0,
+          "relative_position": {
+            "x1": 0.818731,
+            "y1": 0.187661,
+            "x2": 0.903323,
+            "y2": 0.233933,
+            "cx": 0.861027,
+            "cy": 0.210797
+          },
+          "relative_to_axis": {
+            "along_axis": 0.210797,
+            "from_axis": 0.801724
+          }
+        },
+        {
+          "text": "112",
+          "value": 112.0,
+          "confidence": 0.9999370937440016,
+          "bbox_xyxy": {
+            "x1": 141,
+            "y1": 171,
+            "x2": 171,
+            "y2": 191
+          },
+          "cx": 156.0,
+          "cy": 181.0,
+          "relative_position": {
+            "x1": 0.425982,
+            "y1": 0.439589,
+            "x2": 0.516616,
+            "y2": 0.491003,
+            "cx": 0.471299,
+            "cy": 0.465296
+          },
+          "relative_to_axis": {
+            "along_axis": 0.465296,
+            "from_axis": 0.24569
+          }
+        },
+        {
+          "text": "138",
+          "value": 138.0,
+          "confidence": 0.9999930486261803,
+          "bbox_xyxy": {
+            "x1": 151,
+            "y1": 223,
+            "x2": 179,
+            "y2": 241
+          },
+          "cx": 165.0,
+          "cy": 232.0,
+          "relative_position": {
+            "x1": 0.456193,
+            "y1": 0.573265,
+            "x2": 0.540785,
+            "y2": 0.619537,
+            "cx": 0.498489,
+            "cy": 0.596401
+          },
+          "relative_to_axis": {
+            "along_axis": 0.596401,
+            "from_axis": 0.284483
+          }
+        }
+      ],
+      "label_count": 4,
+      "reason": "Found 4 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  },
+  {
+    "chart_id": 3,
+    "detector_label": "horizontal_bar_chart",
+    "detector_confidence": 0.8638209700584412,
+    "orientation": "horizontal",
+    "bbox_xyxy": {
+      "x1": 627,
+      "y1": 343,
+      "x2": 962,
+      "y2": 720
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/36f3b344-8c67-4e41-87eb-f0f18ffccb8e/crops/chart_3_horizontal_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "horizontal",
+      "axis_type": "x-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 20,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "ok",
+      "orientation": "horizontal",
+      "axis_position": 79,
+      "labels": [
+        {
+          "text": "Zoom-out",
+          "value": 0.0,
+          "confidence": 0.8024026335225233,
+          "bbox_xyxy": {
+            "x1": 135,
+            "y1": 17,
+            "x2": 201,
+            "y2": 33
+          },
+          "cx": 168.0,
+          "cy": 25.0,
+          "relative_position": {
+            "x1": 0.402985,
+            "y1": 0.045093,
+            "x2": 0.6,
+            "y2": 0.087533,
+            "cx": 0.501493,
+            "cy": 0.066313
+          },
+          "relative_to_axis": {
+            "along_axis": 0.066313,
+            "from_axis": 0.347656
+          }
+        },
+        {
+          "text": "109",
+          "value": 109.0,
+          "confidence": 0.9930862460923713,
+          "bbox_xyxy": {
+            "x1": 215,
+            "y1": 51,
+            "x2": 243,
+            "y2": 69
+          },
+          "cx": 229.0,
+          "cy": 60.0,
+          "relative_position": {
+            "x1": 0.641791,
+            "y1": 0.135279,
+            "x2": 0.725373,
+            "y2": 0.183024,
+            "cx": 0.683582,
+            "cy": 0.159151
+          },
+          "relative_to_axis": {
+            "along_axis": 0.159151,
+            "from_axis": 0.585938
+          }
+        },
+        {
+          "text": "113",
+          "value": 113.0,
+          "confidence": 0.999995182215476,
+          "bbox_xyxy": {
+            "x1": 221,
+            "y1": 85,
+            "x2": 249,
+            "y2": 103
+          },
+          "cx": 235.0,
+          "cy": 94.0,
+          "relative_position": {
+            "x1": 0.659701,
+            "y1": 0.225464,
+            "x2": 0.743284,
+            "y2": 0.27321,
+            "cx": 0.701493,
+            "cy": 0.249337
+          },
+          "relative_to_axis": {
+            "along_axis": 0.249337,
+            "from_axis": 0.609375
+          }
+        },
+        {
+          "text": "105",
+          "value": 105.0,
+          "confidence": 0.9999883684969583,
+          "bbox_xyxy": {
+            "x1": 211,
+            "y1": 117,
+            "x2": 239,
+            "y2": 135
+          },
+          "cx": 225.0,
+          "cy": 126.0,
+          "relative_position": {
+            "x1": 0.629851,
+            "y1": 0.310345,
+            "x2": 0.713433,
+            "y2": 0.35809,
+            "cx": 0.671642,
+            "cy": 0.334218
+          },
+          "relative_to_axis": {
+            "along_axis": 0.334218,
+            "from_axis": 0.570312
+          }
+        },
+        {
+          "text": "101",
+          "value": 101.0,
+          "confidence": 0.9999879555445207,
+          "bbox_xyxy": {
+            "x1": 205,
+            "y1": 151,
+            "x2": 233,
+            "y2": 169
+          },
+          "cx": 219.0,
+          "cy": 160.0,
+          "relative_position": {
+            "x1": 0.61194,
+            "y1": 0.400531,
+            "x2": 0.695522,
+            "y2": 0.448276,
+            "cx": 0.653731,
+            "cy": 0.424403
+          },
+          "relative_to_axis": {
+            "along_axis": 0.424403,
+            "from_axis": 0.546875
+          }
+        },
+        {
+          "text": "159",
+          "value": 159.0,
+          "confidence": 0.718668520450592,
+          "bbox_xyxy": {
+            "x1": 277,
+            "y1": 187,
+            "x2": 305,
+            "y2": 203
+          },
+          "cx": 291.0,
+          "cy": 195.0,
+          "relative_position": {
+            "x1": 0.826866,
+            "y1": 0.496021,
+            "x2": 0.910448,
+            "y2": 0.538462,
+            "cx": 0.868657,
+            "cy": 0.517241
+          },
+          "relative_to_axis": {
+            "along_axis": 0.517241,
+            "from_axis": 0.828125
+          }
+        },
+        {
+          "text": "111",
+          "value": 111.0,
+          "confidence": 0.9999094949959553,
+          "bbox_xyxy": {
+            "x1": 219,
+            "y1": 221,
+            "x2": 245,
+            "y2": 237
+          },
+          "cx": 232.0,
+          "cy": 229.0,
+          "relative_position": {
+            "x1": 0.653731,
+            "y1": 0.586207,
+            "x2": 0.731343,
+            "y2": 0.628647,
+            "cx": 0.692537,
+            "cy": 0.607427
+          },
+          "relative_to_axis": {
+            "along_axis": 0.607427,
+            "from_axis": 0.597656
+          }
+        },
+        {
+          "text": "107",
+          "value": 107.0,
+          "confidence": 0.9999947692626615,
+          "bbox_xyxy": {
+            "x1": 213,
+            "y1": 251,
+            "x2": 241,
+            "y2": 271
+          },
+          "cx": 227.0,
+          "cy": 261.0,
+          "relative_position": {
+            "x1": 0.635821,
+            "y1": 0.665782,
+            "x2": 0.719403,
+            "y2": 0.718833,
+            "cx": 0.677612,
+            "cy": 0.692308
+          },
+          "relative_to_axis": {
+            "along_axis": 0.692308,
+            "from_axis": 0.578125
+          }
+        }
+      ],
+      "label_count": 8,
+      "reason": "Found 8 numeric data label(s)"
+    },
+    "bar_detection_result": {
+      "status": "skipped",
+      "reason": "OpenCV bar pipeline supports vertical bar charts only",
+      "orientation": "horizontal",
+      "winner_mask": null,
+      "winner_score": null,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [],
+      "axes": []
+    }
+  }
+]

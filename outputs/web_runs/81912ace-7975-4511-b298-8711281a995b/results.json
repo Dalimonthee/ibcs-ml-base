@@ -1,0 +1,419 @@
+[
+  {
+    "chart_id": 0,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8711435794830322,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 379,
+      "y1": 329,
+      "x2": 551,
+      "y2": 477
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/crops/chart_0_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 0,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "vertical",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect x-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "ok",
+      "winner_mask": "C",
+      "winner_score": 2.299024333170675,
+      "bar_count": 3,
+      "bars": [
+        {
+          "x": 94,
+          "y": 32,
+          "w": 9,
+          "h": 103,
+          "close_source": "floor+align"
+        },
+        {
+          "x": 53,
+          "y": 96,
+          "w": 9,
+          "h": 39,
+          "close_source": "floor"
+        },
+        {
+          "x": 134,
+          "y": 62,
+          "w": 9,
+          "h": 73,
+          "close_source": "floor+align"
+        }
+      ],
+      "projection_bars": [
+        {
+          "x": 41,
+          "y": 95,
+          "w": 22,
+          "h": 41,
+          "fill_ratio": 0.793
+        },
+        {
+          "x": 81,
+          "y": 31,
+          "w": 22,
+          "h": 105,
+          "fill_ratio": 0.739
+        },
+        {
+          "x": 121,
+          "y": 62,
+          "w": 22,
+          "h": 74,
+          "fill_ratio": 0.768
+        }
+      ],
+      "axes": [
+        {
+          "y": 96,
+          "weight": 1.5,
+          "source": "corner"
+        }
+      ],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/bar_overlays/chart_0.png"
+    }
+  },
+  {
+    "chart_id": 1,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8571813106536865,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 385,
+      "y1": 136,
+      "x2": 547,
+      "y2": 276
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/crops/chart_1_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 0,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "vertical",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect x-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "no_bars",
+      "winner_mask": "B",
+      "winner_score": 10.0,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [
+        {
+          "x": 42,
+          "y": 25,
+          "w": 5,
+          "h": 66,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 53,
+          "y": 29,
+          "w": 5,
+          "h": 62,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 64,
+          "y": 30,
+          "w": 4,
+          "h": 61,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 74,
+          "y": 31,
+          "w": 5,
+          "h": 60,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 85,
+          "y": 31,
+          "w": 5,
+          "h": 60,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 96,
+          "y": 32,
+          "w": 4,
+          "h": 59,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 106,
+          "y": 44,
+          "w": 5,
+          "h": 47,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 117,
+          "y": 48,
+          "w": 5,
+          "h": 43,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 128,
+          "y": 56,
+          "w": 4,
+          "h": 35,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 138,
+          "y": 68,
+          "w": 5,
+          "h": 23,
+          "fill_ratio": 1.0
+        }
+      ],
+      "axes": [],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/bar_overlays/chart_1.png"
+    }
+  },
+  {
+    "chart_id": 2,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8458306789398193,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 199,
+      "y1": 145,
+      "x2": 359,
+      "y2": 271
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/crops/chart_2_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 0,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "vertical",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect x-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "no_bars",
+      "winner_mask": "B",
+      "winner_score": 8.992857142857144,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [
+        {
+          "x": 39,
+          "y": 22,
+          "w": 5,
+          "h": 63,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 50,
+          "y": 47,
+          "w": 5,
+          "h": 38,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 61,
+          "y": 49,
+          "w": 5,
+          "h": 36,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 71,
+          "y": 57,
+          "w": 5,
+          "h": 28,
+          "fill_ratio": 0.993
+        },
+        {
+          "x": 82,
+          "y": 59,
+          "w": 6,
+          "h": 26,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 93,
+          "y": 61,
+          "w": 6,
+          "h": 24,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 105,
+          "y": 61,
+          "w": 5,
+          "h": 24,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 116,
+          "y": 61,
+          "w": 5,
+          "h": 24,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 127,
+          "y": 62,
+          "w": 5,
+          "h": 23,
+          "fill_ratio": 1.0
+        }
+      ],
+      "axes": [],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/bar_overlays/chart_2.png"
+    }
+  },
+  {
+    "chart_id": 3,
+    "detector_label": "vertical_bar_chart",
+    "detector_confidence": 0.8112664818763733,
+    "orientation": "vertical",
+    "bbox_xyxy": {
+      "x1": 9,
+      "y1": 149,
+      "x2": 172,
+      "y2": 281
+    },
+    "crop_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/crops/chart_3_vertical_bar_chart.png",
+    "start_at_zero_result": {
+      "status": "compliant",
+      "starts_at_zero": true,
+      "orientation": "vertical",
+      "axis_type": "y-axis",
+      "detected_axis_values": [],
+      "ocr_numbers_count": 0,
+      "zero_source": null,
+      "reason": "No reliable value-axis label group detected"
+    },
+    "label_detection_result": {
+      "status": "no_axis",
+      "orientation": "vertical",
+      "axis_position": null,
+      "labels": [],
+      "label_count": 0,
+      "reason": "Could not detect x-axis baseline"
+    },
+    "bar_detection_result": {
+      "status": "no_bars",
+      "winner_mask": "B",
+      "winner_score": 7.8434465221129726,
+      "bar_count": 0,
+      "bars": [],
+      "projection_bars": [
+        {
+          "x": 36,
+          "y": 23,
+          "w": 22,
+          "h": 69,
+          "fill_ratio": 0.661
+        },
+        {
+          "x": 60,
+          "y": 27,
+          "w": 7,
+          "h": 65,
+          "fill_ratio": 0.758
+        },
+        {
+          "x": 69,
+          "y": 22,
+          "w": 5,
+          "h": 70,
+          "fill_ratio": 0.829
+        },
+        {
+          "x": 75,
+          "y": 25,
+          "w": 16,
+          "h": 67,
+          "fill_ratio": 0.599
+        },
+        {
+          "x": 95,
+          "y": 25,
+          "w": 5,
+          "h": 67,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 104,
+          "y": 28,
+          "w": 4,
+          "h": 64,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 112,
+          "y": 26,
+          "w": 5,
+          "h": 66,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 121,
+          "y": 28,
+          "w": 4,
+          "h": 64,
+          "fill_ratio": 1.0
+        },
+        {
+          "x": 129,
+          "y": 25,
+          "w": 5,
+          "h": 67,
+          "fill_ratio": 0.997
+        }
+      ],
+      "axes": [],
+      "orientation": "vertical",
+      "overlay_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/outputs/web_runs/81912ace-7975-4511-b298-8711281a995b/bar_overlays/chart_3.png"
+    }
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "image_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/upload.png",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 724,
+    "height": 792
+  },
+  "num_raw_predictions": 3,
+  "num_analyzed_charts": 3,
+  "results_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/results.json",
+  "labeled_output": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/labeled_output.png",
+  "label_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/label_overlays",
+  "bar_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/bar_overlays",
+  "bar_detection_counts": [
+    {
+      "chart_id": 0,
+      "status": "ok",
+      "bar_count": 10
+    },
+    {
+      "chart_id": 1,
+      "status": "ok",
+      "bar_count": 9
+    },
+    {
+      "chart_id": 2,
+      "status": "ok",
+      "bar_count": 9
+    }
+  ],
+  "raw_result_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/f84c7916-ab60-4864-807b-be2ecfc04d3b/roboflow_raw_result.json",
+  "tesseract_available": false
+}

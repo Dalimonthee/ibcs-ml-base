@@ -1,0 +1,76 @@
+{
+  "image_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/upload.png",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 2020,
+    "height": 1057
+  },
+  "num_raw_predictions": 11,
+  "num_analyzed_charts": 11,
+  "results_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/results.json",
+  "labeled_output": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/labeled_output.png",
+  "label_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/label_overlays",
+  "bar_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/bar_overlays",
+  "bar_detection_counts": [
+    {
+      "chart_id": 0,
+      "status": "ok",
+      "bar_count": 12
+    },
+    {
+      "chart_id": 1,
+      "status": "no_bars",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 2,
+      "status": "ok",
+      "bar_count": 14
+    },
+    {
+      "chart_id": 3,
+      "status": "no_bars",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 4,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 5,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 6,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 7,
+      "status": "ok",
+      "bar_count": 3
+    },
+    {
+      "chart_id": 8,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 9,
+      "status": "ok",
+      "bar_count": 5
+    },
+    {
+      "chart_id": 10,
+      "status": "ok",
+      "bar_count": 3
+    }
+  ],
+  "raw_result_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/e4f51f44-3f1d-42ba-ba0e-3c314b42e342/roboflow_raw_result.json",
+  "tesseract_available": false
+}

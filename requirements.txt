@@ -1,6 +1,16 @@
+# Requires Python 3.10–3.12 (inference-sdk does not support 3.13+).
+# Create the venv with: python3.12 -m venv .venv
+
 matplotlib>=3.8
 numpy>=1.24
 opencv-python>=4.8
 Pillow>=10.0
 PyYAML>=6.0
 ultralytics>=8.1
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+inference-sdk>=1.0.0; python_version < "3.13"
+easyocr>=1.7.0; python_version < "3.13"
+openai>=1.0.0
+tqdm>=4.66

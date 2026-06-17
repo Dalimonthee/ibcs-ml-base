@@ -1,0 +1,41 @@
+{
+  "image_path": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/upload.jpg",
+  "workspace_name": "khas-workspace-3cwa2",
+  "workflow_id": "bar-chart-detection-and-crop-1779799226718",
+  "api_url": "https://detect.roboflow.com",
+  "image_input_name": "image",
+  "image_size": {
+    "width": 2058,
+    "height": 1192
+  },
+  "num_raw_predictions": 4,
+  "num_analyzed_charts": 4,
+  "results_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/results.json",
+  "labeled_output": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/labeled_output.png",
+  "label_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/label_overlays",
+  "bar_overlays_dir": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/bar_overlays",
+  "bar_detection_counts": [
+    {
+      "chart_id": 0,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 1,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 2,
+      "status": "skipped",
+      "bar_count": 0
+    },
+    {
+      "chart_id": 3,
+      "status": "skipped",
+      "bar_count": 0
+    }
+  ],
+  "raw_result_json": "/Users/dalimonthee/AI-ML/ibcs-ml-base/handoff/jugo-ibcs-web/outputs/web_runs/63cbedeb-f8c7-48d4-af4f-6d56d7f9e8d2/roboflow_raw_result.json",
+  "tesseract_available": false
+}
